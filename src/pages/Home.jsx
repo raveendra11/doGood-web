@@ -8,7 +8,7 @@ const Home = () => {
   sx={{
     height: "90vh",                // full viewport height
     width: "100%",                  // full width
-    backgroundImage: "url('/bg.png')",
+    backgroundImage: "url('/images/bg.png')",
     backgroundSize: "100%",      // fit entire image without cropping
     backgroundPosition: "center",   // center it
     backgroundRepeat: "no-repeat",  
