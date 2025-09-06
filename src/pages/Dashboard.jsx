@@ -12,9 +12,7 @@ const Dashboard = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4">Welcome, {user?.name}!</Typography>
-      <Typography>Email: {user?.email}</Typography>
-      <Typography>Role: {user?.role}</Typography>
+      <Typography variant="h4">Welcome to doGood!</Typography>
     </Box>
   );
 };
