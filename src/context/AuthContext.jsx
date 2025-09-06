@@ -1,21 +1,29 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const AuthContext = createContext();
+//axios.defaults.baseURL = 'http://localhost:8087';       // optional: centralize
+axios.defaults.withCredentials = true;                // uncomment if backend uses cookies/sessions
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+const AuthContext = createContext();
+export function useAuth() { return useContext(AuthContext); }
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
+  // ⬇️ Load user on refresh
+  useEffect(() => {
+    const stored = localStorage.getItem('user');
+    if (stored) setCurrentUser(JSON.parse(stored));
+  }, []);
+
   const login = async (email, password) => {
     try {
-      const response = await axios.post('https://dogood-1030922974196.europe-west1.run.app/api/users/login', { email, password });
-      setCurrentUser(response.data);
+      const { data } = await axios.post('http://localhost:8087/api/users/login', { email, password });
+      console.log('login payload:', data);
+      setCurrentUser(data);
+      localStorage.setItem('user', JSON.stringify(data));   // ⬅️ persist
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
@@ -25,8 +33,9 @@ export function AuthProvider({ children }) {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('https://dogood-1030922974196.europe-west1.run.app/api/users/register', userData);
-      setCurrentUser(response.data);
+      const { data } = await axios.post('http://localhost:8087/api/users/register', userData);
+      setCurrentUser(data);
+      localStorage.setItem('user', JSON.stringify(data));   // ⬅️ persist
       navigate('/dashboard');
     } catch (error) {
       console.error('Registration failed:', error);
@@ -36,14 +45,13 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     setCurrentUser(null);
+    localStorage.removeItem('user');                        // ⬅️ clear
+    navigate('/login');
   };
 
-  const value = {
-    currentUser,
-    login,
-    register,
-    logout
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ currentUser, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
