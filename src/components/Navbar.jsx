@@ -48,7 +48,8 @@ const Navbar = () => {
 
         {currentUser ? (
           <>
-            <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>
+            
+            
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -68,7 +69,6 @@ const Navbar = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem component={Link} to="/profile">Profile</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </>
