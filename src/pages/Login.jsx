@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://dogood-1030922974196.europe-west1.run.app/api/users/login', {
+      const response = await fetch('http://localhost:8087/api/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -24,8 +27,13 @@ const Login = () => {
       } else {
         alert('Login failed!');
       }
+      setError('');
+      await login(email, password); // AuthContext handles storing + navigate
+
     } catch (error) {
       console.error('Login error:', error);
+      console.error('Login error:', error);
+      setError('Invalid email or password');
     }
   };
 
@@ -52,6 +60,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {error && <Typography color="error" variant="body2">{error}</Typography>}
         <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
           Login
         </Button>
