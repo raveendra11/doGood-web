@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import Account from './pages/Account';
 
 function App() {
   return (
@@ -32,6 +33,11 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/account" element={
+   <PrivateRoute>
+     <Account />
+   </PrivateRoute>
+ } />
           
           
           {/* Protected routes */}
