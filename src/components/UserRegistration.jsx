@@ -84,7 +84,7 @@ const UserRegistration = () => {
           helperText={formik.touched.role && formik.errors.role}
         >
           <MenuItem value="DONOR">Donor</MenuItem>
-          <MenuItem value="ADMIN">Admin</MenuItem>
+          <MenuItem value="VOLUNTEER">Volunteer</MenuItem>
           <MenuItem value="BENEFICIARY">Beneficiary</MenuItem>
         </TextField>
         
