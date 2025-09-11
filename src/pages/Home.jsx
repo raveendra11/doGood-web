@@ -1,57 +1,25 @@
 import React from 'react';
-import { Box, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box} from '@mui/material';
+
 
 const Home = () => {
   return (
     <Box
-  sx={{
-    height: "90vh",                // full viewport height
-    width: "100%",                  // full width
-    backgroundImage: "url('/bg.png')",
-    backgroundSize: "100%",      // fit entire image without cropping
-    backgroundPosition: "center",   // center it
-    backgroundRepeat: "no-repeat",  
-    backgroundAttachment: "fixed",  // keeps it fixed (doesn't scroll)
-    display: "fixed",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+     sx={{
+    position: 'relative',
+    minHeight: '100vh',
+    width: '100%',
+    backgroundImage: "url('/bg.png')",   // make sure bg.png is inside public/
+    backgroundSize: 'cover',             // fills the whole screen
+    backgroundPosition: 'center',        // centers image
+    backgroundRepeat: 'no-repeat',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   }}
->
-
-      <Box
-  sx={{
-    position: "absolute",
-    bottom: 1,         // distance from bottom
-    left: "50%",
-    transform: "translateX(-50%)",
-    display: "flex",
-    gap: 3              // space between buttons
-  }}
->
-  <Button
-    variant="contained"
-    component={Link}
-    to="/register"
-    sx={{ color: "white", borderColor: "white" }}
-  >
-    Join Us
-  </Button>
-
-  <Button
-    variant="outlined"
-    component={Link}
-    to="/about"
-    sx={{ color: "white" }}
-  >
-    Learn More
-  </Button>
-</Box>
-  
-      
+    >
+      {/* Content wrapper */}
     </Box>
-    
   );
 };
 

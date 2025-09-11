@@ -9,62 +9,53 @@ const Navbar = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleMenu = (e) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  const handleLogout = () => { logout(); navigate('/login'); handleClose(); };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-    handleClose();
-  };
+  // common style for all nav buttons
+  const navButtonStyle = { color: '#fff', fontWeight: 500, textShadow: '1px 1px 3px rgba(0,0,0,0.6)' };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        boxShadow: 'none',
+      }}
+    >
       <Toolbar>
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <IconButton edge="start" aria-label="logo" sx={{ mr: 2 }}>
+            <img src="doGood.png" alt="" style={{ height: 50, width: 50 }} />
+          </IconButton>
+        </Link>
 
+        <Typography variant="h6" sx={{ flexGrow: 1 }} />
 
-<Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-  <IconButton edge="start" color="inherit" aria-label="logo" sx={{ mr: 2 }}>
-    <img 
-      src="doGood.png"
-      alt=''
-      style={{ height: '50px', width: '50px' }} 
-    /> 
-  </IconButton>
-</Link>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        </Typography>
-
-        <Button color="inherit" component={Link} to="/about">About Us</Button>
-        <Button color="inherit" component={Link} to="/causes">Causes</Button>
-        <Button color="inherit" component={Link} to="/gallery">Stories</Button>
-        <Button color="inherit" component={Link} to="/contact">Contact</Button>
-        <Button color="inherit" component={Link} to="/faq">FAQ</Button>
+        <Button sx={navButtonStyle} component={Link} to="/about">About Us</Button>
+        {/*<Button sx={navButtonStyle} component={Link} to="/causes">Causes</Button>
+        <Button sx={navButtonStyle} component={Link} to="/gallery">Stories</Button>
+        <Button sx={navButtonStyle} component={Link} to="/contact">Contact</Button>*/}
+        <Button sx={navButtonStyle} component={Link} to="/faq">FAQ</Button>
 
         {currentUser ? (
           <>
-            
-            
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleMenu}
-              color="inherit"
+              sx={{ color: '#fff' }} // make account icon white too
             >
               <AccountCircle />
             </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              keepMounted
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               open={Boolean(anchorEl)}
               onClose={handleClose}
@@ -74,8 +65,8 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Button color="inherit" component={Link} to="/register">Register</Button>
-            <Button color="inherit" component={Link} to="/login">Login</Button>
+            <Button sx={navButtonStyle} component={Link} to="/register">Register</Button>
+            <Button sx={navButtonStyle} component={Link} to="/login">Login</Button>
           </>
         )}
       </Toolbar>

@@ -1,94 +1,145 @@
 import React from 'react';
-import { Box, Typography, Divider } from '@mui/material';
+import {
+  Box,
+  Container,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
+
+const Section = ({ title, children }) => (
+  <Box
+    sx={{
+      p: { xs: 1, md: 2 },
+      bgcolor: 'transparent',
+    }}
+  >
+    <Typography
+      variant="h5"
+      sx={{ fontWeight: 700, mb: 1.5, color: '#fff' }} // white heading
+    >
+      {title}
+    </Typography>
+    <Box sx={{ color: '#fff' }}>{children}</Box> {/* white body */}
+  </Box>
+);
 
 const About = () => {
   return (
     <Box
       sx={{
-        p: 5,
-        maxWidth: "900px",
-        margin: "0 auto",
-        textAlign: "left",
-        lineHeight: 1.7,
+        minHeight: '100vh',
+        width: '100%',
+        backgroundImage: "url('/about-bg.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        pt: { xs: 10, md: 12 },
+        pb: { xs: 12, md: 14 },
+        position: 'relative',
       }}
     >
-      {/* Title */}
-      <Typography variant="h3" gutterBottom align="center">
-        About Us
-      </Typography>
+      <Container maxWidth="xl">
+        {/* Main Title */}
+        <Typography
+          variant="h3"
+          align="center"
+          sx={{ fontWeight: 800, mb: { xs: 3, md: 5 }, color: '#fff' }}
+        >
+          About Us
+        </Typography>
 
-      {/* Mission */}
-      <Typography variant="h5" gutterBottom>
-        Our Mission
-      </Typography>
-      <Typography variant="body1" paragraph>
-        Our mission is to bridge the gap between donors and beneficiaries by
-        creating a transparent, reliable, and easy-to-use platform. We believe
-        in empowering communities by connecting generous individuals with
-        children, elders, and families in need. Every donation, whether it’s
-        clothes, books, food, or time, makes a real difference.
-      </Typography>
+        {/* Grid Sections */}
+        <Box
+          sx={{
+            display: 'grid',
+            gap: { xs: 3, md: 4 },
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: '1fr 1fr',
+              md: '1fr 1fr 1fr',
+              lg: '1fr 1fr 1fr 1fr',
+            },
+          }}
+        >
+          {/* Mission */}
+          <Section title="Our Mission">
+            <Typography variant="body1" paragraph>
+              Our mission is to bridge the gap between donors and beneficiaries by
+              creating a transparent, reliable, and easy-to-use platform. We believe
+              in empowering communities by connecting generous individuals with
+              children, elders, and families in need. Every donation—whether it’s
+              clothes, books, food, or time—makes a real difference.
+            </Typography>
+          </Section>
 
-      <Divider sx={{ my: 3 }} />
+          {/* Vision */}
+          <Section title="Our Vision">
+            <Typography variant="body1" paragraph>
+              We envision a world where no resource goes to waste and every person
+              has access to the basic necessities of life. By fostering a culture of
+              kindness and social responsibility, we aim to build stronger, more
+              compassionate communities.
+            </Typography>
+          </Section>
 
-      {/* Vision */}
-      <Typography variant="h5" gutterBottom>
-        Our Vision
-      </Typography>
-      <Typography variant="body1" paragraph>
-        We envision a world where no resource goes to waste and every person has
-        access to the basic necessities of life. By fostering a culture of
-        kindness and social responsibility, we aim to build stronger, more
-        compassionate communities.
-      </Typography>
+          {/* What We Do */}
+          <Section title="What We Do">
+            <Typography variant="body1" paragraph>
+              Through our platform, donors can contribute items like:
+            </Typography>
+            <List dense>
+              <ListItem><ListItemText primary="Clothes for children and elders" /></ListItem>
+              <ListItem><ListItemText primary="Books and educational materials" /></ListItem>
+              <ListItem><ListItemText primary="Extra food that would otherwise go to waste" /></ListItem>
+            </List>
+            <Typography variant="body1" paragraph>
+              These contributions are distributed directly to orphanages, elder care
+              homes, and underprivileged communities. Our dedicated volunteers ensure
+              that every donation reaches the right hands with care and dignity.
+            </Typography>
+          </Section>
 
-      <Divider sx={{ my: 3 }} />
+          {/* Values */}
+          <Section title="Our Values">
+            <Typography variant="body1" paragraph>
+              We are guided by four core values:
+            </Typography>
+            <List dense>
+              <ListItem><ListItemText primary="Compassion – Caring for people in need" /></ListItem>
+              <ListItem><ListItemText primary="Sustainability – Reducing waste and sharing resources" /></ListItem>
+              <ListItem><ListItemText primary="Transparency – Ensuring trust between donors and beneficiaries" /></ListItem>
+              <ListItem><ListItemText primary="Community – Building connections and support networks" /></ListItem>
+            </List>
+          </Section>
+        </Box>
+      </Container>
 
-      {/* What We Do */}
-      <Typography variant="h5" gutterBottom>
-        What We Do
-      </Typography>
-      <Typography variant="body1" paragraph>
-        Through our platform, donors can contribute items like:
-      </Typography>
-      <ul>
-        <li><Typography>👕 Clothes for children and elders</Typography></li>
-        <li><Typography>📚 Books and educational materials</Typography></li>
-        <li><Typography>🍲 Extra food that would otherwise go to waste</Typography></li>
-      </ul>
-      <Typography variant="body1" paragraph>
-        These contributions are distributed directly to orphanages, elder care
-        homes, and underprivileged communities. Our dedicated volunteers ensure
-        that every donation reaches the right hands with care and dignity.
-      </Typography>
-
-      <Divider sx={{ my: 3 }} />
-
-      {/* Values */}
-      <Typography variant="h5" gutterBottom>
-        Our Values
-      </Typography>
-      <Typography variant="body1" paragraph>
-        We are guided by four core values:
-      </Typography>
-      <ul>
-        <li><Typography>🤝 Compassion – Caring for people in need</Typography></li>
-        <li><Typography>🌍 Sustainability – Reducing waste and sharing resources</Typography></li>
-        <li><Typography>💡 Transparency – Ensuring trust between donors and beneficiaries</Typography></li>
-        <li><Typography>🙌 Community – Building connections and support networks</Typography></li>
-      </ul>
-
-      <Divider sx={{ my: 3 }} />
-
-      {/* Closing */}
-      <Typography variant="h5" gutterBottom>
-        Join Us
-      </Typography>
-      <Typography variant="body1" paragraph>
-        Be part of our journey to create a kinder world. Whether you choose to
-        donate, volunteer, or spread the word, your contribution matters. Together,
-        we can make sure that no one is left behind.
-      </Typography>
+      {/* Join Us at bottom center */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: { xs: 30, md: 50 },
+          left: '50%',
+          transform: 'translateX(-50%)',
+          textAlign: 'center',
+          maxWidth: 600,
+          px: 2,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: 700, mb: 1.5, color: '#fff' }} // white heading
+        >
+          Join Us
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#fff' }}>
+          Be part of our journey to create a kinder world. Whether you choose to
+          donate, volunteer, or spread the word, your contribution matters.
+          Together, we can make sure that no one is left behind.
+        </Typography>
+      </Box>
     </Box>
   );
 };
