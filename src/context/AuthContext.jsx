@@ -20,8 +20,8 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post('https://dogood-1030922974196.europe-west1.run.app/api/users/login', { email, password });
-      //const { data } = await axios.post('http://localhost:8080/api/login', { email, password });
+      //const { data } = await axios.post('https://dogood-1030922974196.europe-west1.run.app/api/login', { email, password });
+      const { data } = await axios.post('http://localhost:8080/api/login', { email, password });
       console.log('login payload:', data);
       setCurrentUser(data);
       localStorage.setItem('user', JSON.stringify(data));   // ⬅️ persist
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
 
   const register = async (userData) => {
     try {
-      const { data } = await axios.post('https://dogood-1030922974196.europe-west1.run.app/api/users/register', userData);
+      const { data } = await axios.post('https://dogood-1030922974196.europe-west1.run.app/api/register', userData);
       //const { data } = await axios.post('http://localhost:8080/api/register', userData);
       setCurrentUser(data);
       localStorage.setItem('user', JSON.stringify(data));   // ⬅️ persist
