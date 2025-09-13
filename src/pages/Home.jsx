@@ -10,7 +10,7 @@ const Home = () => {
     minHeight: '100vh',
     width: '100%',
     backgroundImage: "url('/bg.png')",   // make sure bg.png is inside public/
-    backgroundSize: 'cover',             // fills the whole screen
+    backgroundSize: { xs: 'contain', md: 'cover' },  // ✅ contain on phones        // fills the whole screen
     backgroundPosition: 'center',        // centers image
     backgroundRepeat: 'no-repeat',
     display: 'flex',
