@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { TextField, Button, Box, Typography, MenuItem, Paper } from '@mui/material';
 import { registerUser } from '../services/api';
@@ -125,6 +126,9 @@ const UserRegistration = () => {
           >
             Register
           </Button>
+          <Typography variant="body2" sx={{ mt: 2, textAlign: 'center' }}>
+                      Already have an account? <Link to="/login">Login here</Link>
+                    </Typography>
         </form>
       </Paper>
     </Box>
