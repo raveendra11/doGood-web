@@ -1,39 +1,35 @@
 import React from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 
 const Home = () => {
-  const theme = useTheme();
-
-  // Get default AppBar (toolbar) height from theme
-  const appBarHeight = theme.mixins.toolbar.minHeight;
-
   return (
     <Box
       sx={{
         position: "relative",
-        // Fill viewport but subtract AppBar height dynamically
-        minHeight: { xs: `calc(100dvh - ${appBarHeight}px)`, md: "100vh" },
-        mt: { xs: `${appBarHeight}px`, md: 0 },
+        minHeight: "100dvh", // full viewport height including under navbar
         width: "100%",
 
-        // Responsive background
+        // Responsive background images
         backgroundImage: {
-          xs: "url('/bg-mobile.png')",
-          md: "url('/bg.png')",
+          xs: "url('/bg-mobile.png')", // portrait image for phones
+          md: "url('/bg.png')",        // landscape/wide for desktops
         },
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: { xs: "50% 30%", md: "center" },
+        backgroundSize: "cover", // no white space, fills screen
+        backgroundPosition: { xs: "top center", md: "center" },
         backgroundColor: "#0f3b60",
 
-        paddingTop: "env(safe-area-inset-top)", // safe area for notches
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+
+        // Safe area for notches
+        paddingTop: "env(safe-area-inset-top)",
         overflow: "hidden",
+        zIndex: 0, // ensures background sits behind AppBar
       }}
     >
-      {/* Content wrapper */}
+      {/* Optional content here */}
     </Box>
   );
 };
