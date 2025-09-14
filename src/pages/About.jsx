@@ -102,44 +102,18 @@ const About = () => {
           </Section>
 
           {/* Values */}
-          <Section title="Our Values">
-            <Typography variant="body1" paragraph>
-              We are guided by four core values:
-            </Typography>
-            <List dense>
-              <ListItem><ListItemText primary="Compassion – Caring for people in need" /></ListItem>
-              <ListItem><ListItemText primary="Sustainability – Reducing waste and sharing resources" /></ListItem>
-              <ListItem><ListItemText primary="Transparency – Ensuring trust between donors and beneficiaries" /></ListItem>
-              <ListItem><ListItemText primary="Community – Building connections and support networks" /></ListItem>
-            </List>
+          <Section title="Join Us">
+           <Typography variant="body1" sx={{ color: '#fff' }}>
+          Be part of our journey to create a kinder world. Whether you choose to
+          donate, volunteer, or spread the word, your contribution matters.
+          Together, we can make sure that no one is left behind.
+        </Typography>
           </Section>
         </Box>
       </Container>
 
       {/* Join Us at bottom center */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: { xs: 30, md: 50 },
-          left: '50%',
-          transform: 'translateX(-50%)',
-          textAlign: 'center',
-          maxWidth: 600,
-          px: 2,
-        }}
-      >
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: 700, mb: 1.5, color: '#fff' }} // white heading
-        >
-          Join Us
-        </Typography>
-        <Typography variant="body1" sx={{ color: '#fff' }}>
-          Be part of our journey to create a kinder world. Whether you choose to
-          donate, volunteer, or spread the word, your contribution matters.
-          Together, we can make sure that no one is left behind.
-        </Typography>
-      </Box>
+      
     </Box>
   );
 };
