@@ -103,11 +103,11 @@ const About = () => {
 
           {/* Values */}
           <Section title="Join Us">
-           <Typography variant="body1" sx={{ color: '#fff' }}>
-          Be part of our journey to create a kinder world. Whether you choose to
+            <Typography variant="body1" paragraph>
+              Be part of our journey to create a kinder world. Whether you choose to
           donate, volunteer, or spread the word, your contribution matters.
           Together, we can make sure that no one is left behind.
-        </Typography>
+            </Typography>
           </Section>
         </Box>
       </Container>
