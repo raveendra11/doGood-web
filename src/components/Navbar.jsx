@@ -37,8 +37,8 @@ const Navbar = () => {
         <Button sx={navButtonStyle} component={Link} to="/about">About Us</Button>
         {/*<Button sx={navButtonStyle} component={Link} to="/causes">Causes</Button>
         <Button sx={navButtonStyle} component={Link} to="/gallery">Stories</Button>
-        <Button sx={navButtonStyle} component={Link} to="/contact">Contact</Button>*/}
-        <Button sx={navButtonStyle} component={Link} to="/faq">FAQ</Button>
+        <Button sx={navButtonStyle} component={Link} to="/contact">Contact</Button>
+        <Button sx={navButtonStyle} component={Link} to="/faq">FAQ</Button>*/}
 
         {currentUser ? (
           <>

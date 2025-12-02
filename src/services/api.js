@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://dogood-1030922974196.europe-west1.run.app/api';
+const API_URL = 'https://dogood-23738934914.us-central1.run.app/api';
 //const API_URL = 'http://localhost:8080/api';
 
 export const registerUser = async (userData) => {
