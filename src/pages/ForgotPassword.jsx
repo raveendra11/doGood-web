@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, Box, Typography, Paper, CircularProgress } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Paper,
+  CircularProgress,
+} from '@mui/material';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +17,17 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  // Helper to safely parse response
+  const parseResponse = async (response) => {
+    const contentType = response.headers.get('content-type');
+
+    if (contentType && contentType.includes('application/json')) {
+      return await response.json();
+    } else {
+      return await response.text();
+    }
+  };
 
   const handleGenerateToken = async () => {
     if (!email) {
@@ -30,16 +48,33 @@ const ForgotPassword = () => {
         }
       );
 
-      const data = await response.json();
+      const data = await parseResponse(response);
 
       if (response.ok) {
-        setToken(data.token);
+        // If backend returns JSON { token: "xxx" }
+        if (typeof data === 'object' && data.token) {
+          setToken(data.token);
+        }
+        // If backend returns plain string
+        else if (typeof data === 'string') {
+          setToken(data);
+        } else {
+          setError('Unexpected server response');
+          setLoading(false);
+          return;
+        }
+
         setGenerated(true);
       } else {
-        setError(data.message || 'Invalid email');
+        setError(
+          typeof data === 'string'
+            ? data
+            : data?.message || 'Invalid email'
+        );
       }
     } catch (err) {
-      setError('Something went wrong');
+      console.error(err);
+      setError('Network error or server not reachable');
     }
 
     setLoading(false);
@@ -67,15 +102,23 @@ const ForgotPassword = () => {
         }
       );
 
+      const data = await parseResponse(response);
+
       if (response.ok) {
-        alert('Password reset completed. Use your new password to login.');
+        alert(
+          'Password reset completed. Use your new password to login.'
+        );
         navigate('/login');
       } else {
-        const data = await response.json();
-        setError(data.message || 'Invalid or expired token');
+        setError(
+          typeof data === 'string'
+            ? data
+            : data?.message || 'Invalid or expired token'
+        );
       }
     } catch (err) {
-      setError('Something went wrong');
+      console.error(err);
+      setError('Network error or server not reachable');
     }
 
     setLoading(false);
@@ -125,7 +168,11 @@ const ForgotPassword = () => {
               onClick={handleGenerateToken}
               disabled={loading}
             >
-              {loading ? <CircularProgress size={24} /> : 'Generate Reset Token'}
+              {loading ? (
+                <CircularProgress size={24} />
+              ) : (
+                'Generate Reset Token'
+              )}
             </Button>
           </>
         ) : (
@@ -154,7 +201,11 @@ const ForgotPassword = () => {
               onClick={handleResetPassword}
               disabled={loading}
             >
-              {loading ? <CircularProgress size={24} /> : 'Reset Password'}
+              {loading ? (
+                <CircularProgress size={24} />
+              ) : (
+                'Reset Password'
+              )}
             </Button>
           </>
         )}
