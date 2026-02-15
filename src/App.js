@@ -7,6 +7,7 @@ import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import Donate from './pages/Donate';
 import RequestHelp from './pages/RequestHelp';
 import Causes from './pages/Causes';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/request-help" element={<RequestHelp />} />
           <Route path="/causes" element={<Causes />} />
@@ -34,12 +36,12 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/account" element={
-   <PrivateRoute>
-     <Account />
-   </PrivateRoute>
- } />
-          
-          
+            <PrivateRoute>
+              <Account />
+            </PrivateRoute>
+          } />
+
+
           {/* Protected routes */}
           <Route path="/dashboard" element={
             <PrivateRoute>
