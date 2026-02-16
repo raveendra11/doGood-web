@@ -18,7 +18,6 @@ const ForgotPassword = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Helper to safely parse response
   const parseResponse = async (response) => {
     const contentType = response.headers.get('content-type');
 
@@ -51,13 +50,20 @@ const ForgotPassword = () => {
       const data = await parseResponse(response);
 
       if (response.ok) {
-        // If backend returns JSON { token: "xxx" }
         if (typeof data === 'object' && data.token) {
+          // Proper JSON response
           setToken(data.token);
-        }
-        // If backend returns plain string
-        else if (typeof data === 'string') {
-          setToken(data);
+        } else if (typeof data === 'string') {
+          // Extract UUID from string response
+          const uuidMatch = data.match(/[0-9a-fA-F-]{36}/);
+
+          if (uuidMatch) {
+            setToken(uuidMatch[0]);
+          } else {
+            setError('Token not found in response');
+            setLoading(false);
+            return;
+          }
         } else {
           setError('Unexpected server response');
           setLoading(false);
@@ -65,7 +71,8 @@ const ForgotPassword = () => {
         }
 
         setGenerated(true);
-      } else {
+      }
+      else {
         setError(
           typeof data === 'string'
             ? data
