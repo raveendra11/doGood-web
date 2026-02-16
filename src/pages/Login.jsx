@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       //const response = await fetch('http://localhost:8080/api/login', {
-       const response = await fetch('https://dogood-23738934914.us-central1.run.app/api/login', {
+      const response = await fetch('https://dogood-23738934914.us-central1.run.app/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -38,20 +38,20 @@ const Login = () => {
 
   return (
     <Box
-  sx={{
-    height: '100vh',   // exact viewport height
-    width: '100vw',    // exact viewport width
-    m: 0,              // remove margin
-    p: 0,              // remove padding
-    backgroundImage: "url('/login.jpg')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }}
->
+      sx={{
+        height: '100vh',   // exact viewport height
+        width: '100vw',    // exact viewport width
+        m: 0,              // remove margin
+        p: 0,              // remove padding
+        backgroundImage: "url('/login.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Paper
         elevation={6}
         sx={{
@@ -85,6 +85,14 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
+          <Typography
+            variant="body2"
+            sx={{ textAlign: 'right', mt: 1 }}
+          >
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </Typography>
+
 
           {error && (
             <Typography color="error" variant="body2" sx={{ mt: 1 }}>
