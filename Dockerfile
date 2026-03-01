@@ -11,7 +11,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-ENV PORT=8082
-EXPOSE 8082
+ENV PORT=3001
+EXPOSE 3001
 
 CMD ["nginx", "-g", "daemon off;"]
