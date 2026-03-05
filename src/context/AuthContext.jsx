@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
 
   const register = async (userData) => {
     try {
-      const { data } = await axios.post('http://34.128.167.227/api/register', userData);
+      const { data } = await axios.post('https://34.128.167.227/api/register', userData);
       //const { data } = await axios.post('http://localhost:8080/api/register', userData);
       setCurrentUser(data);
       localStorage.setItem('user', JSON.stringify(data));   // ⬅️ persist
