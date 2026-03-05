@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post('http://34.128.167.227/api/login', { email, password });
+      const { data } = await axios.post('https://34.128.167.227/api/login', { email, password });
       //const { data } = await axios.post('http://localhost:8080/api/login', { email, password });
       console.log('login payload:', data);
       setCurrentUser(data);
