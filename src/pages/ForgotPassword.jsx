@@ -98,7 +98,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        'https://dogood-23738934914.us-central1.run.app/api/reset-password',
+        'http://34.128.167.227/api/reset-password',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
