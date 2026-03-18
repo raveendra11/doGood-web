@@ -39,7 +39,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        'https://34.128.167.227/api/forgot-password',
+        'https://api.wedogood.help/api/forgot-password',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -98,7 +98,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        'https://34.128.167.227/api/reset-password',
+        'https://api.wedogood.help/api/reset-password',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
