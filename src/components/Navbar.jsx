@@ -231,7 +231,7 @@ const Navbar = () => {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 2 }}>
-          <Box component="img" src="doGood.png" alt="" sx={{ height: 38, width: 38, borderRadius: '50%', mr: 1.25 }} />
+          <Box component="img" src="doGood.png" alt="doGood logo" sx={{ height: 38, width: 38, borderRadius: '50%', mr: 1.25 }} />
           <Typography variant="h6" sx={{ fontWeight: 800, color: '#fff', letterSpacing: '0.04em' }}>
             doGood
           </Typography>
