@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -6,6 +6,7 @@ import { TextField, Button, Box, Typography, MenuItem, Paper } from '@mui/materi
 import { registerUser } from '../services/api';
 
 const UserRegistration = () => {
+  const [registrationError, setRegistrationError] = useState('');
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -20,12 +21,23 @@ const UserRegistration = () => {
       role: Yup.string().required('Required')
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      setRegistrationError('');
       try {
         await registerUser(values);
         alert('User registered successfully!');
         resetForm();
       } catch (error) {
-        alert('Registration failed: ' + (error.response?.data?.message || error.message));
+        const serverMessage = error.response?.data?.message;
+        const isDuplicateEmailError =
+          error.response?.status === 409 ||
+          serverMessage?.toLowerCase().includes('already exists') ||
+          serverMessage?.toLowerCase().includes('already registered');
+
+        setRegistrationError(
+          isDuplicateEmailError
+            ? 'an user already exists with this email.'
+            : (serverMessage || error.message || 'Registration failed.')
+        );
       }
       setSubmitting(false);
     }
@@ -126,6 +138,11 @@ const UserRegistration = () => {
           >
             Register
           </Button>
+          {registrationError && (
+            <Typography color="error" variant="body2" sx={{ mt: 1, textAlign: 'center' }}>
+              {registrationError}
+            </Typography>
+          )}
           <Typography variant="body2" sx={{ mt: 2, textAlign: 'center' }}>
                       Already have an account? <Link to="/login">Login here</Link>
                     </Typography>
