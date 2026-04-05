@@ -27,7 +27,17 @@ const UserRegistration = () => {
         alert('User registered successfully!');
         resetForm();
       } catch (error) {
-        setRegistrationError('an user already exists with this email.');
+        const serverMessage = error.response?.data?.message;
+        const isDuplicateEmailError =
+          error.response?.status === 409 ||
+          serverMessage?.toLowerCase().includes('already exists') ||
+          serverMessage?.toLowerCase().includes('already registered');
+
+        setRegistrationError(
+          isDuplicateEmailError
+            ? 'an user already exists with this email.'
+            : (serverMessage || error.message || 'Registration failed.')
+        );
       }
       setSubmitting(false);
     }
