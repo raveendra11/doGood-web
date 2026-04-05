@@ -17,6 +17,7 @@ import FAQ from './pages/FAQ';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Account from './pages/Account';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
             </PrivateRoute>
           } />
         </Routes>
+        <Footer />
       </AuthProvider>
     </Router>
   );

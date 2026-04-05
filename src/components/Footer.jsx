@@ -1,0 +1,20 @@
+import React from 'react';
+import { Box, Container, Link, Stack, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+
+const Footer = () => (
+  <Box component="footer" sx={{ backgroundColor: 'primary.dark', color: 'common.white', py: 4, px: 2 }}>
+    <Container maxWidth="lg">
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems="center">
+        <Typography variant="body2">© {new Date().getFullYear()} doGood. All rights reserved.</Typography>
+        <Stack direction="row" spacing={2}>
+          <Link component={RouterLink} to="/about" underline="hover" color="inherit">About</Link>
+          <Link component={RouterLink} to="/contact" underline="hover" color="inherit">Contact</Link>
+          <Link component={RouterLink} to="/faq" underline="hover" color="inherit">FAQ</Link>
+        </Stack>
+      </Stack>
+    </Container>
+  </Box>
+);
+
+export default Footer;
