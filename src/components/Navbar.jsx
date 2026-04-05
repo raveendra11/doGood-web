@@ -41,7 +41,9 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   React.useEffect(() => {
-    if (!isMobile) {
+    if (isMobile) {
+      setAnchorEl(null);
+    } else {
       setDrawerOpen(false);
     }
   }, [isMobile]);
