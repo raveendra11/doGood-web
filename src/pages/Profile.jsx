@@ -4,8 +4,17 @@ import { useAuth } from '../context/AuthContext';
 
 const Profile = () => {
   const { currentUser } = useAuth();
+  const formatLabel = (key) => key
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
   const visibleEntries = Object.entries(currentUser || {}).filter(
-    ([key, value]) => value !== null && value !== undefined && key.toLowerCase() !== 'password',
+    ([key, value]) => (
+      value !== null
+      && value !== undefined
+      && !/(password|secret|token|salt|hash)$/i.test(key)
+    ),
   );
 
   return (
@@ -13,7 +22,7 @@ const Profile = () => {
       <Typography variant="h3" gutterBottom>Your Profile</Typography>
       {visibleEntries.map(([key, value]) => (
         <Typography key={key} variant="body1">
-          {`${key.charAt(0).toUpperCase()}${key.slice(1)}: ${value}`}
+          {`${formatLabel(key)}: ${value}`}
         </Typography>
       ))}
     </Box>
