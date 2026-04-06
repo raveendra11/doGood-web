@@ -7,7 +7,7 @@ jest.mock('../context/AuthContext', () => ({
   useAuth: () => mockUseAuth(),
 }));
 
-test('renders all user details except password on profile page', () => {
+test('renders user details while excluding sensitive fields on profile page', () => {
   mockUseAuth.mockReturnValue({
     currentUser: {
       name: 'Jane Doe',
