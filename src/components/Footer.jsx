@@ -9,6 +9,8 @@ const Footer = () => (
         <Typography variant="body2">© {new Date().getFullYear()} doGood. All rights reserved.</Typography>
         <Stack direction="row" spacing={2}>
           <Link component={RouterLink} to="/about" underline="hover" color="inherit">About</Link>
+          <Link component={RouterLink} to="/contact" underline="hover" color="inherit">Contact</Link>
+          <Link component={RouterLink} to="/faq" underline="hover" color="inherit">FAQ</Link>
         </Stack>
       </Stack>
     </Container>
