@@ -33,49 +33,61 @@ const Causes = () => {
   return (
     <Box
       sx={{
-        p: 5,
-        maxWidth: "1100px",
-        margin: "0 auto",
-        textAlign: "left",
-        lineHeight: 1.7,
+        minHeight: "100vh",
+        width: "100%",
+        backgroundImage: "url('/about-bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        py: { xs: 10, md: 12 },
       }}
     >
-      {/* Title */}
-      <Typography variant="h3" gutterBottom align="center">
-        Our Causes
-      </Typography>
+      <Box
+        sx={{
+          p: { xs: 3, md: 5 },
+          maxWidth: "1100px",
+          margin: "0 auto",
+          textAlign: "left",
+          lineHeight: 1.7,
+        }}
+      >
+        {/* Title */}
+        <Typography variant="h3" gutterBottom align="center">
+          Our Causes
+        </Typography>
 
-      <Typography variant="body1" paragraph align="center">
-        Here are the initiatives we are currently working on. Each cause reflects
-        our commitment to creating a positive impact in the community.
-      </Typography>
+        <Typography variant="body1" paragraph align="center">
+          Here are the initiatives we are currently working on. Each cause reflects
+          our commitment to creating a positive impact in the community.
+        </Typography>
 
-      <Divider sx={{ my: 4 }} />
+        <Divider sx={{ my: 4 }} />
 
-      {/* Causes in grid format */}
-      <Grid container spacing={4}>
-        {causes.map((cause, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card
-              sx={{
-                borderRadius: "16px",
-                boxShadow: 3,
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between"
-              }}
-            >
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  {cause.title}
-                </Typography>
-                <Typography variant="body2">{cause.description}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+        {/* Causes in grid format */}
+        <Grid container spacing={4}>
+          {causes.map((cause, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                sx={{
+                  borderRadius: "16px",
+                  boxShadow: 3,
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between"
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    {cause.title}
+                  </Typography>
+                  <Typography variant="body2">{cause.description}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Box>
   );
 };
