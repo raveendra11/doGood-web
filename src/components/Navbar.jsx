@@ -45,6 +45,7 @@ const Navbar = () => {
   }, [isMobile]);
   const handleMenu = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
+  const handleProfile = () => { navigate('/profile'); handleClose(); };
   const handleLogout = () => { logout(); navigate('/login'); handleClose(); };
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
 
@@ -179,6 +180,7 @@ const Navbar = () => {
                       },
                     }}
                   >
+                    <MenuItem onClick={handleProfile} sx={{ fontWeight: 500 }}>Profile</MenuItem>
                     <MenuItem onClick={handleLogout} sx={{ fontWeight: 500 }}>Logout</MenuItem>
                   </Menu>
                 </>
@@ -252,14 +254,26 @@ const Navbar = () => {
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', my: 1 }} />
         <List>
           {currentUser ? (
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => { handleLogout(); toggleDrawer(); }}
-                sx={{ px: 3, py: 1.2, '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' } }}
-              >
-                <ListItemText primary="Logout" primaryTypographyProps={{ fontWeight: 600, color: '#fff' }} />
-              </ListItemButton>
-            </ListItem>
+            <>
+              <ListItem disablePadding>
+                <ListItemButton
+                  component={Link}
+                  to="/profile"
+                  onClick={toggleDrawer}
+                  sx={{ px: 3, py: 1.2, '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' } }}
+                >
+                  <ListItemText primary="Profile" primaryTypographyProps={{ fontWeight: 600, color: '#fff' }} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => { handleLogout(); toggleDrawer(); }}
+                  sx={{ px: 3, py: 1.2, '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' } }}
+                >
+                  <ListItemText primary="Logout" primaryTypographyProps={{ fontWeight: 600, color: '#fff' }} />
+                </ListItemButton>
+              </ListItem>
+            </>
           ) : (
             <>
               <ListItem disablePadding>

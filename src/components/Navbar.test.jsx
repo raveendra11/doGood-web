@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Navbar from './Navbar';
 
 jest.mock('react-router-dom', () => ({
@@ -7,14 +7,20 @@ jest.mock('react-router-dom', () => ({
   useLocation: () => ({ pathname: '/' }),
 }), { virtual: true });
 
+const mockUseAuth = jest.fn();
+
 jest.mock('../context/AuthContext', () => ({
-  useAuth: () => ({
-    currentUser: null,
-    logout: jest.fn(),
-  }),
+  useAuth: () => mockUseAuth(),
 }));
 
 const renderNavbar = () => render(<Navbar />);
+
+beforeEach(() => {
+  mockUseAuth.mockReturnValue({
+    currentUser: null,
+    logout: jest.fn(),
+  });
+});
 
 test('renders transparent navbar and no doGood brand text', () => {
   renderNavbar();
@@ -25,4 +31,17 @@ test('renders transparent navbar and no doGood brand text', () => {
 
   expect(screen.getByLabelText('Go to homepage')).toBeInTheDocument();
   expect(screen.queryByText('doGood')).not.toBeInTheDocument();
+});
+
+test('shows profile and logout menu items for authenticated users', () => {
+  mockUseAuth.mockReturnValue({
+    currentUser: { name: 'Test User', email: 'test@example.com' },
+    logout: jest.fn(),
+  });
+  renderNavbar();
+
+  fireEvent.click(screen.getByLabelText('account of current user'));
+
+  expect(screen.getByText('Profile')).toBeInTheDocument();
+  expect(screen.getByText('Logout')).toBeInTheDocument();
 });
