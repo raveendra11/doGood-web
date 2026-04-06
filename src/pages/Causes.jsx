@@ -36,6 +36,7 @@ const Causes = () => {
         minHeight: "100vh",
         width: "100%",
         backgroundImage: "url('/about-bg.jpg')",
+        backgroundColor: "#0f3b60",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -49,6 +50,8 @@ const Causes = () => {
           margin: "0 auto",
           textAlign: "left",
           lineHeight: 1.7,
+          bgcolor: "rgba(255, 255, 255, 0.78)",
+          borderRadius: 3,
         }}
       >
         {/* Title */}
