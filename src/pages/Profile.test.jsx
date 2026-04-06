@@ -16,6 +16,7 @@ test('renders all user details except password on profile page', () => {
       role: 'user',
       password: 'secret',
       passwordHash: 'abcdef',
+      preferences: { newsletter: true },
     },
   });
 
@@ -25,6 +26,7 @@ test('renders all user details except password on profile page', () => {
   expect(screen.getByText('Email: jane@example.com')).toBeInTheDocument();
   expect(screen.getByText('First Name: Jane')).toBeInTheDocument();
   expect(screen.getByText('Role: user')).toBeInTheDocument();
+  expect(screen.getByText('Preferences: {"newsletter":true}')).toBeInTheDocument();
   expect(screen.queryByText(/Password:/i)).not.toBeInTheDocument();
   expect(screen.queryByText(/Password Hash:/i)).not.toBeInTheDocument();
 });
