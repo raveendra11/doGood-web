@@ -123,7 +123,11 @@ const Navbar = () => {
       >
         <Toolbar sx={{ minHeight: { xs: 60, md: 68 }, px: { xs: 2, md: 3 } }}>
           {/* Logo + Brand */}
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
+          <Link
+            to="/"
+            aria-label="Go to homepage"
+            style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}
+          >
             <Box component="span" sx={{ mr: 0.5, p: 0.5, display: 'flex', alignItems: 'center' }}>
               <img src="doGood.png" alt="" style={{ height: 44, width: 44, borderRadius: '50%' }} />
             </Box>

@@ -23,5 +23,6 @@ test('renders transparent navbar and no doGood brand text', () => {
   const backgroundColor = window.getComputedStyle(appBar).backgroundColor;
   expect(['transparent', 'rgba(0, 0, 0, 0)', '']).toContain(backgroundColor);
 
+  expect(screen.getByLabelText('Go to homepage')).toBeInTheDocument();
   expect(screen.queryByText('doGood')).not.toBeInTheDocument();
 });
