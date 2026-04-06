@@ -35,7 +35,7 @@ const Causes = () => {
       sx={{
         minHeight: "100vh",
         width: "100%",
-        backgroundImage: "url('/about-bg.jpg')",
+        backgroundImage: "url('/causes-bg.svg')",
         backgroundColor: "#0f3b60",
         backgroundSize: "cover",
         backgroundPosition: "center",
