@@ -2,7 +2,6 @@ import React from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography,
   Button,
   Menu,
   MenuItem,
@@ -117,11 +116,9 @@ const Navbar = () => {
         position="fixed"
         elevation={0}
         sx={{
-          background: 'linear-gradient(135deg, rgba(27,94,32,0.92) 0%, rgba(46,125,50,0.88) 100%)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
-          borderBottom: '1px solid rgba(255,255,255,0.1)',
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
+          borderBottom: 'none',
         }}
       >
         <Toolbar sx={{ minHeight: { xs: 60, md: 68 }, px: { xs: 2, md: 3 } }}>
@@ -130,18 +127,6 @@ const Navbar = () => {
             <Box component="span" sx={{ mr: 0.5, p: 0.5, display: 'flex', alignItems: 'center' }}>
               <img src="doGood.png" alt="" style={{ height: 44, width: 44, borderRadius: '50%' }} />
             </Box>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 800,
-                fontSize: '1.25rem',
-                color: '#fff',
-                letterSpacing: '0.04em',
-                textShadow: '0 1px 4px rgba(0,0,0,0.25)',
-              }}
-            >
-              doGood
-            </Typography>
           </Link>
 
           {/* Spacer */}
@@ -234,9 +219,6 @@ const Navbar = () => {
       >
         <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 2 }}>
           <Box component="img" src="doGood.png" alt="doGood logo" sx={{ height: 38, width: 38, borderRadius: '50%', mr: 1.25 }} />
-          <Typography variant="h6" sx={{ fontWeight: 800, color: '#fff', letterSpacing: '0.04em' }}>
-            doGood
-          </Typography>
         </Box>
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', mb: 1 }} />
         <List>
