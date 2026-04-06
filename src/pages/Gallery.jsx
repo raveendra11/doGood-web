@@ -33,9 +33,8 @@ const Gallery = () => {
           >
             <CardMedia
               component="img"
-              image="/children.jpg"
+              image="/about-bg.jpg"
               alt="Children receiving clothes donation"
-              onError={(e) => { e.currentTarget.src = '/about-bg.jpg'; }}
               sx={{ height: { xs: 240, sm: 360, md: 420 }, objectFit: 'cover' }}
             />
             <CardContent sx={{ p: 3 }}>
