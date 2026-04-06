@@ -4,19 +4,31 @@ import { useAuth } from '../context/AuthContext';
 
 const Profile = () => {
   const { currentUser } = useAuth();
+  const userProfileData = currentUser && typeof currentUser === 'object' ? currentUser : {};
+  const formatLabel = (key) => key
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+  const formatValue = (value) => (
+    typeof value === 'object' ? JSON.stringify(value) : String(value)
+  );
+
+  const visibleEntries = Object.entries(userProfileData).filter(
+    ([key, value]) => (
+      value !== null
+      && value !== undefined
+      && !/(password|secret|token|salt|hash)/i.test(key)
+    ),
+  );
 
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" gutterBottom>Your Profile</Typography>
-      <Typography variant="body1">
-        Name: {currentUser?.name}
-      </Typography>
-      <Typography variant="body1">
-        Email: {currentUser?.email}
-      </Typography>
-      <Typography variant="body1">
-        Role: {currentUser?.role}
-      </Typography>
+      {visibleEntries.map(([key, value]) => (
+        <Typography key={key} variant="body1">
+          {`${formatLabel(key)}: ${formatValue(value)}`}
+        </Typography>
+      ))}
     </Box>
   );
 };
