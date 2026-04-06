@@ -13,7 +13,7 @@ const Profile = () => {
     ([key, value]) => (
       value !== null
       && value !== undefined
-      && !/(password|secret|token|salt|hash)$/i.test(key)
+      && !/(password|secret|token|salt|hash)/i.test(key)
     ),
   );
 
