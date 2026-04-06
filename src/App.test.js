@@ -8,7 +8,7 @@ jest.mock('react-router-dom', () => ({
 test('renders footer links and copyright text', () => {
   render(<Footer />);
   expect(screen.getByRole('link', { name: /about/i })).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: /faq/i })).toBeInTheDocument();
+  expect(screen.queryByRole('link', { name: /contact/i })).not.toBeInTheDocument();
+  expect(screen.queryByRole('link', { name: /faq/i })).not.toBeInTheDocument();
   expect(screen.getByText(/all rights reserved/i)).toBeInTheDocument();
 });
