@@ -46,7 +46,7 @@ const Navbar = () => {
   const handleMenu = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
   const handleProfile = () => { navigate('/profile'); handleClose(); };
-  const handleLogout = () => { logout(); navigate('/login'); handleClose(); };
+  const handleLogout = () => { logout(); handleClose(); };
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
 
   const isActive = (path) => location.pathname === path;
