@@ -39,8 +39,8 @@ const Login = () => {
   return (
     <Box
       sx={{
-        height: '100vh',   // exact viewport height
-        width: '100vw',    // exact viewport width
+        minHeight: '100vh',
+        width: '100%',
         m: 0,              // remove margin
         p: 0,              // remove padding
         backgroundImage: "url('/login.jpg')",
