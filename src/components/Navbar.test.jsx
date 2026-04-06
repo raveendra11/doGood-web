@@ -20,7 +20,7 @@ test('renders transparent navbar and no doGood brand text', () => {
   renderNavbar();
 
   const appBar = screen.getByRole('banner');
-  expect(appBar).toHaveStyle('background-color: transparent');
+  expect(window.getComputedStyle(appBar).backgroundColor).toBe('transparent');
 
   expect(screen.queryByText('doGood')).not.toBeInTheDocument();
 });
