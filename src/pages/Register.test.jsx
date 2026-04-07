@@ -37,6 +37,7 @@ describe('Register page', () => {
         role: 'DONOR',
       })
     );
+    expect(window.alert).toHaveBeenCalledWith('User registered successfully!');
     expect(mockNavigate).toHaveBeenCalledWith('/login');
   });
 });
