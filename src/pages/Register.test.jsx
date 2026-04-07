@@ -14,9 +14,15 @@ jest.mock('react-router-dom', () => ({
 }), { virtual: true });
 
 describe('Register page', () => {
+  let alertSpy;
+
   beforeEach(() => {
     jest.clearAllMocks();
-    window.alert = jest.fn();
+    alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    alertSpy.mockRestore();
   });
 
   it('redirects to login after successful registration', async () => {
@@ -37,7 +43,11 @@ describe('Register page', () => {
         role: 'DONOR',
       })
     );
-    expect(window.alert).toHaveBeenCalledWith('User registered successfully!');
-    expect(mockNavigate).toHaveBeenCalledWith('/login');
+    await waitFor(() =>
+      expect(window.alert).toHaveBeenCalledWith('User registered successfully!')
+    );
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith('/login')
+    );
   });
 });
