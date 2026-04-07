@@ -23,11 +23,12 @@ const UserRegistration = () => {
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       setRegistrationError('');
+      let registrationSucceeded = false;
       try {
         await registerUser(values);
         alert('User registered successfully!');
         resetForm();
-        navigate('/login');
+        registrationSucceeded = true;
       } catch (error) {
         const serverMessage = error.response?.data?.message;
         const isDuplicateEmailError =
@@ -40,8 +41,13 @@ const UserRegistration = () => {
             ? 'an user already exists with this email.'
             : (serverMessage || error.message || 'Registration failed.')
         );
+      } finally {
+        setSubmitting(false);
       }
-      setSubmitting(false);
+
+      if (registrationSucceeded) {
+        navigate('/login');
+      }
     }
   });
 
