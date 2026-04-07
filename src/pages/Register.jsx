@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { TextField, Button, Box, Typography, MenuItem, Paper } from '@mui/material';
 import { registerUser } from '../services/api';
 
 const UserRegistration = () => {
   const [registrationError, setRegistrationError] = useState('');
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -22,10 +23,12 @@ const UserRegistration = () => {
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       setRegistrationError('');
+      let registrationSucceeded = false;
       try {
         await registerUser(values);
         alert('User registered successfully!');
         resetForm();
+        registrationSucceeded = true;
       } catch (error) {
         const serverMessage = error.response?.data?.message;
         const isDuplicateEmailError =
@@ -38,8 +41,13 @@ const UserRegistration = () => {
             ? 'an user already exists with this email.'
             : (serverMessage || error.message || 'Registration failed.')
         );
+      } finally {
+        setSubmitting(false);
       }
-      setSubmitting(false);
+
+      if (registrationSucceeded) {
+        navigate('/login');
+      }
     }
   });
 
