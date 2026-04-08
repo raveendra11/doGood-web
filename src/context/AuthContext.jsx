@@ -8,7 +8,12 @@ axios.defaults.withCredentials = true;                // uncomment if backend us
 const AuthContext = createContext();
 export function useAuth() { return useContext(AuthContext); }
 const INACTIVITY_TIMEOUT_MS = 5 * 60 * 1000;
+const INACTIVITY_CHECK_INTERVAL_MS = 1000;
 const ACTIVITY_EVENTS = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'];
+const PASSIVE_EVENT_OPTIONS = { passive: true };
+const getEventOptions = (eventName) => (
+  eventName === 'scroll' || eventName === 'touchstart' ? PASSIVE_EVENT_OPTIONS : undefined
+);
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -56,24 +61,27 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (!currentUser) return undefined;
 
-    let inactivityTimer;
-    const resetInactivityTimer = () => {
-      clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => {
-        logout();
-      }, INACTIVITY_TIMEOUT_MS);
+    let lastActivity = Date.now();
+    const markActivity = () => {
+      lastActivity = Date.now();
     };
 
+    const inactivityCheckInterval = setInterval(() => {
+      if (Date.now() - lastActivity >= INACTIVITY_TIMEOUT_MS) {
+        logout();
+      }
+    }, INACTIVITY_CHECK_INTERVAL_MS);
+
     ACTIVITY_EVENTS.forEach((eventName) => {
-      window.addEventListener(eventName, resetInactivityTimer);
+      window.addEventListener(eventName, markActivity, getEventOptions(eventName));
     });
 
-    resetInactivityTimer();
+    markActivity();
 
     return () => {
-      clearTimeout(inactivityTimer);
+      clearInterval(inactivityCheckInterval);
       ACTIVITY_EVENTS.forEach((eventName) => {
-        window.removeEventListener(eventName, resetInactivityTimer);
+        window.removeEventListener(eventName, markActivity, getEventOptions(eventName));
       });
     };
   }, [currentUser, logout]);
