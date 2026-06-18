@@ -26,6 +26,7 @@ const NAV_LINKS = [
   { label: 'About Us', path: '/about' },
   { label: 'Causes', path: '/causes' },
   { label: 'Gallery', path: '/gallery' },
+  { label: 'Contact', path: '/contact' },
 ];
 
 const Navbar = () => {
