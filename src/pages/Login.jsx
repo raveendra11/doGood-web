@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { TextField, Button, Box, Typography, Paper } from '@mui/material';
+import { TextField, Button, Box, Typography, Paper, InputAdornment } from '@mui/material';
+import { Email, Lock } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
@@ -13,7 +14,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //const response = await fetch('http://localhost:8080/api/login', {
       const response = await fetch('https://api.wedogood.help/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,14 +25,13 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(userData));
         navigate('/dashboard');
       } else {
-        alert('Login failed!');
+        setError('Invalid email or password');
       }
 
-      setError('');
       await login(email, password);
     } catch (error) {
       console.error('Login error:', error);
-      setError('Invalid email or password');
+      setError('An unexpected error occurred. Please try again.');
     }
   };
 
@@ -41,40 +40,58 @@ const Login = () => {
       sx={{
         minHeight: '100vh',
         width: '100%',
-        m: 0,              // remove margin
-        p: 0,              // remove padding
-        backgroundImage: "url('/login.jpg')",
+        m: 0,
+        p: 0,
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/login.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        p: 2
       }}
     >
       <Paper
-        elevation={6}
+        elevation={0}
         sx={{
-          maxWidth: 400,
+          position: 'relative',
+          zIndex: 1,
+          maxWidth: 420,
           width: '100%',
-          p: 4,
-          borderRadius: 3,
-          bgcolor: 'rgba(255,255,255,0.85)',
+          p: { xs: 3, md: 5 },
+          borderRadius: 8,
+          bgcolor: '#ffffff',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+          border: '4px solid #fff',
         }}
       >
-        <Typography variant="h5" gutterBottom align="center">
-          Login
-        </Typography>
+        <Box textAlign="center" mb={4}>
+          <Typography variant="h4" sx={{ fontWeight: 900, color: '#1b5e20', mb: 1, letterSpacing: '-0.02em' }}>
+            Welcome Back
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+            Sign in to continue your journey of giving
+          </Typography>
+        </Box>
 
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Email"
+            label="Email Address"
             type="email"
             fullWidth
             margin="normal"
             variant="outlined"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Email sx={{ color: '#2e7d32' }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
           />
           <TextField
             label="Password"
@@ -84,18 +101,26 @@ const Login = () => {
             variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock sx={{ color: '#2e7d32' }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
           />
 
-          <Typography
-            variant="body2"
-            sx={{ textAlign: 'right', mt: 1 }}
-          >
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </Typography>
-
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+            <Typography variant="body2">
+              <Link to="/forgot-password" style={{ color: '#2e7d32', textDecoration: 'none', fontWeight: 600 }}>
+                Forgot Password?
+              </Link>
+            </Typography>
+          </Box>
 
           {error && (
-            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+            <Typography color="error" variant="body2" sx={{ mt: 2, textAlign: 'center', fontWeight: 600, bgcolor: '#ffebee', p: 1, borderRadius: 2 }}>
               {error}
             </Typography>
           )}
@@ -104,13 +129,26 @@ const Login = () => {
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ mt: 2 }}
+            sx={{ 
+              mt: 4, 
+              py: 1.5, 
+              borderRadius: 3, 
+              fontSize: '1.1rem', 
+              fontWeight: 700,
+              bgcolor: '#2e7d32',
+              textTransform: 'none',
+              '&:hover': { bgcolor: '#1b5e20' },
+              boxShadow: '0 8px 16px rgba(46, 125, 50, 0.3)'
+            }}
           >
-            Login
+            Login to Account
           </Button>
 
-          <Typography variant="body2" sx={{ mt: 2, textAlign: 'center' }}>
-            Don't have an account? <Link to="/register">Register here</Link>
+          <Typography variant="body2" sx={{ mt: 3, textAlign: 'center', color: 'text.secondary' }}>
+            Don't have an account?{' '}
+            <Link to="/register" style={{ color: '#2e7d32', textDecoration: 'none', fontWeight: 700 }}>
+              Register here
+            </Link>
           </Typography>
         </form>
       </Paper>

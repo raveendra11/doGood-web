@@ -6,23 +6,38 @@ import {
   List,
   ListItem,
   ListItemText,
+  Grid,
+  Paper,
+  Stack,
 } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const Section = ({ title, children }) => (
-  <Box
+  <Paper
+    elevation={0}
     sx={{
-      p: { xs: 1, md: 2 },
-      bgcolor: 'transparent',
+      p: 3,
+      bgcolor: 'rgba(255, 255, 255, 0.15)',
+      backdropFilter: 'blur(10px)',
+      borderRadius: 4,
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      height: '100%',
+      transition: 'all 0.3s ease',
+      '&:hover': {
+        bgcolor: 'rgba(255, 255, 255, 0.25)',
+        transform: 'translateY(-5px)',
+        borderColor: 'rgba(255, 255, 255, 0.5)',
+      },
     }}
   >
     <Typography
       variant="h5"
-      sx={{ fontWeight: 700, mb: 1.5, color: '#fff' }} // white heading
+      sx={{ fontWeight: 800, mb: 2, color: '#fff', letterSpacing: '-0.01em' }}
     >
       {title}
     </Typography>
-    <Box sx={{ color: '#fff' }}>{children}</Box> {/* white body */}
-  </Box>
+    <Box sx={{ color: '#fff' }}>{children}</Box>
+  </Paper>
 );
 
 const About = () => {
@@ -31,7 +46,7 @@ const About = () => {
       sx={{
         minHeight: '100vh',
         width: '100%',
-        backgroundImage: "url('/about-bg.jpg')",
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/about-bg.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -40,80 +55,105 @@ const About = () => {
         position: 'relative',
       }}
     >
-      <Container maxWidth="xl">
-        {/* Main Title */}
-        <Typography
-          variant="h3"
-          align="center"
-          sx={{ fontWeight: 800, mb: { xs: 3, md: 5 }, color: '#fff' }}
-        >
-          About Us
-        </Typography>
+      <Container maxWidth="lg">
+        <Stack spacing={6}>
+          {/* Main Title */}
+          <Box textAlign="center">
+            <Typography
+              variant="h2"
+              sx={{ 
+                fontWeight: 900, 
+                mb: 2, 
+                color: '#fff', 
+                fontSize: { xs: '2.5rem', md: '4rem' },
+                textShadow: '0 4px 10px rgba(0,0,0,0.3)'
+              }}
+            >
+              About Us
+            </Typography>
+            <Box 
+              sx={{ 
+                width: '80px', 
+                height: '4px', 
+                bgcolor: '#fff', 
+                mx: 'auto', 
+                borderRadius: 2 
+              }} 
+            />
+          </Box>
 
-        {/* Grid Sections */}
-        <Box
-          sx={{
-            display: 'grid',
-            gap: { xs: 3, md: 4 },
-            gridTemplateColumns: {
-              xs: '1fr',
-              sm: '1fr 1fr',
-              md: '1fr 1fr 1fr',
-              lg: '1fr 1fr 1fr 1fr',
-            },
-          }}
-        >
-          {/* Mission */}
-          <Section title="Our Mission">
-            <Typography variant="body1" paragraph>
-              Our mission is to bridge the gap between donors and beneficiaries by
-              creating a transparent, reliable, and easy-to-use platform. We believe
-              in empowering communities by connecting generous individuals with
-              children, elders, and families in need. Every donation—whether it’s
-              clothes, books, food, or time—makes a real difference.
-            </Typography>
-          </Section>
+          {/* Grid Sections */}
+          <Grid 
+            container 
+            spacing={3}
+            sx={{ 
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: '1fr 1fr',
+                md: '1fr 1fr',
+              }
+            }}
+          >
+            <Grid item xs={12} sm={6}>
+              <Section title="Our Mission">
+                <Typography variant="body1" sx={{ lineHeight: 1.7, fontSize: '1.1rem' }}>
+                  Our mission is to bridge the gap between donors and beneficiaries by
+                  creating a transparent, reliable, and easy-to-use platform. We believe
+                  in empowering communities by connecting generous individuals with
+                  children, elders, and families in need. Every donation—whether it’s
+                  clothes, books, food, or time—makes a real difference.
+                </Typography>
+              </Section>
+            </Grid>
 
-          {/* Vision */}
-          <Section title="Our Vision">
-            <Typography variant="body1" paragraph>
-              We envision a world where no resource goes to waste and every person
-              has access to the basic necessities of life. By fostering a culture of
-              kindness and social responsibility, we aim to build stronger, more
-              compassionate communities.
-            </Typography>
-          </Section>
+            <Grid item xs={12} sm={6}>
+              <Section title="Our Vision">
+                <Typography variant="body1" sx={{ lineHeight: 1.7, fontSize: '1.1rem' }}>
+                  We envision a world where no resource goes to waste and every person
+                  has access to the basic necessities of life. By fostering a culture of
+                  kindness and social responsibility, we aim to build stronger, more
+                  compassionate communities.
+                </Typography>
+              </Section>
+            </Grid>
 
-          {/* What We Do */}
-          <Section title="What We Do">
-            <Typography variant="body1" paragraph>
-              Through our platform, donors can contribute items like:
-            </Typography>
-            <List dense>
-              <ListItem><ListItemText primary="Clothes for children and elders" /></ListItem>
-              <ListItem><ListItemText primary="Books and educational materials" /></ListItem>
-              <ListItem><ListItemText primary="Extra food that would otherwise go to waste" /></ListItem>
-            </List>
-            <Typography variant="body1" paragraph>
-              These contributions are distributed directly to orphanages, elder care
-              homes, and underprivileged communities. Our dedicated volunteers ensure
-              that every donation reaches the right hands with care and dignity.
-            </Typography>
-          </Section>
+            <Grid item xs={12} sm={6}>
+              <Section title="What We Do">
+                <Typography variant="body1" paragraph sx={{ mb: 2 }}>
+                  Through our platform, donors can contribute items that directly impact lives:
+                </Typography>
+                <List dense>
+                  <ListItem sx={{ alignItems: 'flex-start', py: 0.5 }}>
+                    <CheckCircleOutlineIcon sx={{ mr: 1.5, color: '#fff', fontSize: 20 }} />
+                    <ListItemText primary="Clothes for children and elders" sx={{ '& .MuiListItemText-primary': { color: '#fff' } }} />
+                  </ListItem>
+                  <ListItem sx={{ alignItems: 'flex-start', py: 0.5 }}>
+                    <CheckCircleOutlineIcon sx={{ mr: 1.5, color: '#fff', fontSize: 20 }} />
+                    <ListItemText primary="Books and educational materials" sx={{ '& .MuiListItemText-primary': { color: '#fff' } }} />
+                  </ListItem>
+                  <ListItem sx={{ alignItems: 'flex-start', py: 0.5 }}>
+                    <CheckCircleOutlineIcon sx={{ mr: 1.5, color: '#fff', fontSize: 20 }} />
+                    <ListItemText primary="Extra food that would otherwise go to waste" sx={{ '& .MuiListItemText-primary': { color: '#fff' } }} />
+                  </ListItem>
+                </List>
+                <Typography variant="body1" sx={{ mt: 2, lineHeight: 1.7 }}>
+                  Our dedicated volunteers ensure that every donation reaches the right hands with care and dignity.
+                </Typography>
+              </Section>
+            </Grid>
 
-          {/* Values */}
-          <Section title="Join Us">
-            <Typography variant="body1" paragraph>
-              Be part of our journey to create a kinder world. Whether you choose to
-          donate, volunteer, or spread the word, your contribution matters.
-          Together, we can make sure that no one is left behind.
-            </Typography>
-          </Section>
-        </Box>
+            <Grid item xs={12} sm={6}>
+              <Section title="Join Us">
+                <Typography variant="body1" sx={{ lineHeight: 1.7, fontSize: '1.1rem' }}>
+                  Be part of our journey to create a kinder world. Whether you choose to
+                  donate, volunteer, or spread the word, your contribution matters.
+                  Together, we can make sure that no one is left behind.
+                </Typography>
+              </Section>
+            </Grid>
+          </Grid>
+        </Stack>
       </Container>
-
-      {/* Join Us at bottom center */}
-      
     </Box>
   );
 };
