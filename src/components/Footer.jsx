@@ -6,7 +6,7 @@ import YoutubeIcon from '@mui/icons-material/YouTube';
 const Footer = () => (
   <Box component="footer" sx={{ backgroundColor: '#1b5e20', color: '#fff', py: 3, px: 2 }}>
     <Container maxWidth="lg">
-      <Grid container spacing={22}>
+      <Grid container spacing={4}>
         <Grid item xs={12} sm={4}>
           <Typography variant="subtitle1" sx={{ fontWeight: 800, mb: 1, color: '#fff' }}>
             doGood

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -9,8 +10,10 @@ import {
   Grid,
   Paper,
   Stack,
+  Button,
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Section = ({ title, children }) => (
   <Paper
@@ -41,6 +44,7 @@ const Section = ({ title, children }) => (
 );
 
 const About = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -144,11 +148,35 @@ const About = () => {
 
             <Grid item xs={12} sm={6}>
               <Section title="Join Us">
-                <Typography variant="body1" sx={{ lineHeight: 1.7, fontSize: '1.1rem' }}>
-                  Be part of our journey to create a kinder world. Whether you choose to
-                  donate, volunteer, or spread the word, your contribution matters.
-                  Together, we can make sure that no one is left behind.
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Typography variant="body1" sx={{ lineHeight: 1.7, fontSize: '1.1rem', flexGrow: 1 }}>
+                    Be part of our journey to create a kinder world. Whether you choose to
+                    donate, volunteer, or spread the word, your contribution matters.
+                    Together, we can make sure that no one is left behind.
+                  </Typography>
+                  <Box 
+                    onClick={() => navigate('/register')}
+                    sx={{ 
+                      cursor: 'pointer', 
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      bgcolor: 'rgba(76, 175, 80, 0.2)',
+                      color: '#4CAF50',
+                      transition: 'all 0.3s ease',
+                      '&:hover': { 
+                        bgcolor: '#4CAF50', 
+                        color: '#fff',
+                        transform: 'translateX(5px)' 
+                      }
+                    }}
+                  >
+                    <ArrowForwardIosIcon sx={{ fontSize: '1.2rem' }} />
+                  </Box>
+                </Box>
               </Section>
             </Grid>
           </Grid>
@@ -159,3 +187,4 @@ const About = () => {
 };
 
 export default About;
+
