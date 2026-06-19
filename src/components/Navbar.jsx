@@ -23,6 +23,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useAuth } from '../context/AuthContext';
 
 const NAV_LINKS = [
+  { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
   { label: 'Causes', path: '/causes' },
   { label: 'Gallery', path: '/gallery' },
