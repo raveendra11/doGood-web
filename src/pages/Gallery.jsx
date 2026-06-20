@@ -16,51 +16,13 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import CloseIcon from '@mui/icons-material/Close';
+import GALLERY_ITEMS from '../data/galleryItems';
 
 const CATEGORY_LABELS = {
   all: 'All',
   video: 'Videos',
   image: 'Photos',
 };
-
-const GALLERY_ITEMS = [
-  {
-    id: 'food-distribution',
-    type: 'video',
-    url: 'https://www.youtube.com/embed/ec-1NSL1GAk',
-    title: 'Food Distribution',
-    description: 'Distributing meals to daily workers and orphans.',
-    category: 'Hunger Relief',
-    date: '2024-08-12',
-  },
-  {
-    id: 'community-support',
-    type: 'video',
-    url: 'https://www.youtube.com/embed/aquzw8uZi_w',
-    title: 'Community Support',
-    description: 'Donated blankets on the new years eve.',
-    category: 'Basic Needs',
-    date: '2024-12-31',
-  },
-  {
-    id: 'clothes-donation-video',
-    type: 'video',
-    url: 'https://www.youtube.com/embed/O2NcKd_GIZc',
-    title: 'Clothes Donation Drive',
-    description: 'A short video showcasing our impact in the community.',
-    category: 'Basic Needs',
-    date: '2024-10-05',
-  },
-  {
-    id: 'clothes-donation-photo',
-    type: 'image',
-    url: '/children_cloths_donation.jpg',
-    title: 'Clothes Donation Drive',
-    description: 'Providing clothes to children in need.',
-    category: 'Basic Needs',
-    date: '2024-09-18',
-  },
-];
 
 const formatDate = (iso) => {
   if (!iso) return '';
@@ -264,21 +226,34 @@ const GalleryCard = ({ item, onOpen }) => {
             )
           ) : (
             <>
-              <Box
-                component="iframe"
-                src={item.url}
-                title={item.title}
-                loading="lazy"
-                tabIndex={-1}
-                sx={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  border: 0,
-                  pointerEvents: 'none',
-                }}
-              />
+              {!imgError ? (
+                <CardMedia
+                  component="img"
+                  image={item.thumbnail || item.url}
+                  alt={item.title}
+                  onError={() => setImgError(true)}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 0.4s ease',
+                    '.MuiCardActionArea-root:hover &': { transform: 'scale(1.05)' },
+                  }}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    bgcolor: '#1b5e20',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <VideocamIcon sx={{ fontSize: 48, color: '#fff', opacity: 0.6 }} />
+                </Box>
+              )}
               <Box
                 sx={{
                   position: 'absolute',
@@ -287,9 +262,8 @@ const GalleryCard = ({ item, onOpen }) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   bgcolor: 'rgba(0,0,0,0.25)',
-                  opacity: 1,
-                  transition: 'opacity 0.25s ease',
-                  '.MuiCardActionArea-root:hover &': { opacity: 0 },
+                  transition: 'bgcolor 0.25s ease',
+                  '.MuiCardActionArea-root:hover &': { bgcolor: 'rgba(0,0,0,0.45)' },
                 }}
               >
                 <Box
@@ -297,11 +271,13 @@ const GalleryCard = ({ item, onOpen }) => {
                     width: 64,
                     height: 64,
                     borderRadius: '50%',
-                    bgcolor: 'rgba(255,255,255,0.9)',
+                    bgcolor: 'rgba(255,255,255,0.92)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     boxShadow: '0 6px 16px rgba(0,0,0,0.25)',
+                    transition: 'transform 0.25s ease',
+                    '.MuiCardActionArea-root:hover &': { transform: 'scale(1.1)' },
                   }}
                 >
                   <PlayArrowIcon sx={{ fontSize: 40, color: '#1b5e20' }} />

@@ -21,9 +21,13 @@ import ElderlyIcon from '@mui/icons-material/Elderly';
 import WarningIcon from '@mui/icons-material/Warning';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import GroupsIcon from '@mui/icons-material/Groups';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import GALLERY_ITEMS from '../data/galleryItems';
+import { IMPACT_STATS } from '../data/impactStats';
 
 const QUICK_LINKS = [
   {
@@ -92,13 +96,6 @@ const CAUSE_HIGHLIGHTS = [
       'Rapid response with food, clothing, and shelter during crises and disasters.',
     color: '#C62828',
   },
-];
-
-const STATS = [
-  { value: '5+', label: 'Donations', icon: <VolunteerActivismIcon />, color: '#1b5e20' },
-  { value: '10+', label: 'Volunteers', icon: <GroupsIcon />, color: '#E91E63' },
-  { value: '50+', label: 'Lives Touched', icon: <FavoriteIcon />, color: '#FF9800' },
-  { value: '5+', label: 'Communities', icon: <EmojiObjectsIcon />, color: '#1E88E5' },
 ];
 
 const DEVELOPMENT_BANNER =
@@ -216,12 +213,7 @@ const Home = () => {
         <Box
           sx={{
             position: 'absolute',
-            // Use clamp so the banner hugs the bottom of the navbar on phones
-            // and on devices with notches/safe-area insets.
-            top: {
-              xs: 'calc(60px + env(safe-area-inset-top, 0px))',
-              md: 'calc(68px + env(safe-area-inset-top, 0px))',
-            },
+            top: 64,
             left: 0,
             right: 0,
             color: '#fff',
@@ -304,7 +296,7 @@ const Home = () => {
       {/* ===== STATS STRIP ===== */}
       <Box
         sx={{
-          mt: { xs: -1, md: -1 },
+          mt: { xs: 0, md: 0 },
           mb: { xs: 2, md: 4 },
           position: 'relative',
           zIndex: 2,
@@ -323,61 +315,64 @@ const Home = () => {
             }}
           >
             <Grid container spacing={{ xs: 2, md: 3 }}>
-              {STATS.map((stat) => (
-                <Grid key={stat.label} size={{ xs: 6, md: 3 }}>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    alignItems="center"
-                    sx={{
-                      p: { xs: 1.5, md: 2 },
-                      borderRadius: 3,
-                      transition: 'bgcolor 0.2s',
-                      '&:hover': { bgcolor: '#f1f8e9' },
-                    }}
-                  >
-                    <Box
+              {IMPACT_STATS.map((stat) => {
+                const Icon = stat.icon;
+                return (
+                  <Grid key={stat.key} size={{ xs: 6, md: 3 }}>
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      alignItems="center"
                       sx={{
-                        width: { xs: 48, md: 56 },
-                        height: { xs: 48, md: 56 },
-                        borderRadius: 2.5,
-                        bgcolor: `${stat.color}22`,
-                        color: stat.color,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                        '& svg': { fontSize: { xs: 26, md: 30 } },
+                        p: { xs: 1.5, md: 2 },
+                        borderRadius: 3,
+                        transition: 'bgcolor 0.2s',
+                        '&:hover': { bgcolor: '#f1f8e9' },
                       }}
                     >
-                      {stat.icon}
-                    </Box>
-                    <Box>
-                      <Typography
-                        variant="h4"
+                      <Box
                         sx={{
-                          fontWeight: 800,
-                          color: '#1b5e20',
-                          lineHeight: 1,
-                          fontSize: { xs: '1.5rem', md: '2rem' },
+                          width: { xs: 48, md: 56 },
+                          height: { xs: 48, md: 56 },
+                          borderRadius: 2.5,
+                          bgcolor: `${stat.color}22`,
+                          color: stat.color,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          '& svg': { fontSize: { xs: 26, md: 30 } },
                         }}
                       >
-                        {stat.value}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: 'text.secondary',
-                          fontWeight: 600,
-                          mt: 0.5,
-                        }}
-                      >
-                        {stat.label}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                </Grid>
-              ))}
+                        <Icon />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="h4"
+                          sx={{
+                            fontWeight: 800,
+                            color: '#1b5e20',
+                            lineHeight: 1,
+                            fontSize: { xs: '1.5rem', md: '2rem' },
+                          }}
+                        >
+                          {stat.value}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: 'text.secondary',
+                            fontWeight: 600,
+                            mt: 0.5,
+                          }}
+                        >
+                          {stat.shortLabel}
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  </Grid>
+                );
+              })}
             </Grid>
           </Paper>
         </Container>
@@ -855,51 +850,134 @@ const Home = () => {
             title="Moments from the field"
             subtitle="A glimpse into the donation drives, distributions, and smiles that keep us going."
           />
-          <Grid container spacing={2}>
-            {[
-              { src: '/children_cloths_donation.jpg', title: 'Clothes Donation Drive' },
-              { src: '/bg_o.png', title: 'Community Outreach' },
-              { src: '/bg_23.png', title: 'Volunteer Stories' },
-              { src: '/bg_last_new.png', title: 'On The Ground' },
-            ].map((img, idx) => (
-              <Grid key={img.title} size={{ xs: 12, sm: 6, md: 3 }}>
-                <Box
-                  onClick={() => navigate('/gallery')}
-                  sx={{
-                    position: 'relative',
-                    aspectRatio: '1 / 1',
-                    borderRadius: 3,
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    backgroundImage: `url(${img.src})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    transition: 'transform 0.3s ease',
-                    '&:hover': { transform: 'scale(1.02)' },
-                    '&:hover .overlay': { opacity: 1 },
-                    '&:hover img-label': { transform: 'translateY(0)' },
-                  }}
-                >
+          <Grid container spacing={2.5}>
+            {GALLERY_ITEMS.map((item) => {
+              const tileSrc = item.type === 'video' ? item.thumbnail || item.url : item.url;
+              return (
+                <Grid key={item.id} size={{ xs: 12, sm: 6, md: 3 }}>
                   <Box
-                    className="overlay"
+                    onClick={() => navigate('/gallery')}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Open ${item.title} in gallery`}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        navigate('/gallery');
+                      }
+                    }}
                     sx={{
-                      position: 'absolute',
-                      inset: 0,
-                      bgcolor: 'rgba(27, 94, 32, 0.55)',
-                      opacity: 0,
-                      transition: 'opacity 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      p: 2,
+                      position: 'relative',
+                      aspectRatio: '1 / 1',
+                      borderRadius: 3,
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      backgroundImage: `url(${tileSrc})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      boxShadow: '0 6px 18px rgba(27, 94, 32, 0.12)',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-4px) scale(1.01)',
+                        boxShadow: '0 14px 30px rgba(27, 94, 32, 0.22)',
+                      },
+                      '&:hover .overlay': { opacity: 1 },
+                      '&:hover .play-btn': { transform: 'scale(1.1)' },
                     }}
                   >
-                    <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: '1.05rem' }}>
-                      {img.title}
-                    </Typography>
+                    {/* Subtle darkening so text & chips stay readable */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        background:
+                          'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.0) 45%, rgba(0,0,0,0.55) 100%)',
+                      }}
+                    />
+
+                    {/* Type chip */}
+                    <Chip
+                      icon={item.type === 'video' ? <VideocamIcon /> : <PhotoCameraIcon />}
+                      label={item.type === 'video' ? 'Video' : 'Photo'}
+                      size="small"
+                      sx={{
+                        position: 'absolute',
+                        top: 10,
+                        left: 10,
+                        fontWeight: 600,
+                        bgcolor: 'rgba(255,255,255,0.92)',
+                        color: '#1b5e20',
+                        '& .MuiChip-icon': { color: '#1b5e20' },
+                      }}
+                    />
+
+                    {/* Play button for videos */}
+                    {item.type === 'video' && (
+                      <Box
+                        className="play-btn"
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          width: 56,
+                          height: 56,
+                          borderRadius: '50%',
+                          bgcolor: 'rgba(255,255,255,0.92)',
+                          color: '#1b5e20',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 6px 16px rgba(0,0,0,0.3)',
+                          transition: 'transform 0.25s ease',
+                        }}
+                      >
+                        <PlayArrowIcon sx={{ fontSize: 34 }} />
+                      </Box>
+                    )}
+
+                    {/* Title overlay on hover */}
+                    <Box
+                      className="overlay"
+                      sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        bgcolor: 'rgba(27, 94, 32, 0.55)',
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease',
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        p: 2,
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: 'rgba(255,255,255,0.85)',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            letterSpacing: 1,
+                          }}
+                        >
+                          {item.category}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            color: '#fff',
+                            fontWeight: 700,
+                            fontSize: '1.05rem',
+                            lineHeight: 1.3,
+                          }}
+                        >
+                          {item.title}
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Box>
-                </Box>
-              </Grid>
-            ))}
+                </Grid>
+              );
+            })}
           </Grid>
           <Box textAlign="center" sx={{ mt: 4 }}>
             <Button

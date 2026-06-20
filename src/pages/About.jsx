@@ -20,13 +20,7 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
-const STATS = [
-  { value: '12K+', label: 'Donations Delivered', icon: <VolunteerActivismIcon />, color: '#4CAF50' },
-  { value: '350+', label: 'Active Volunteers', icon: <GroupsIcon />, color: '#FF9800' },
-  { value: '8.5K', label: 'Lives Touched', icon: <FavoriteIcon />, color: '#E91E63' },
-  { value: '45+', label: 'Communities Served', icon: <Diversity3Icon />, color: '#1E88E5' },
-];
+import { IMPACT_STATS } from '../data/impactStats';
 
 const VALUES = [
   {
@@ -61,29 +55,29 @@ const VALUES = [
 
 const MILESTONES = [
   {
-    year: '2021',
+    year: '2022',
     title: 'A Small Beginning',
     description: 'Founded by a group of friends who wanted to redirect surplus to those in need.',
   },
   {
-    year: '2022',
-    title: 'First 1,000 Donations',
-    description: 'Crossed our first major milestone distributing clothing and food across the city.',
-  },
-  {
     year: '2023',
-    title: 'Volunteer Network',
-    description: 'Onboarded 200+ volunteers and partnered with 10 orphanages and old-age homes.',
+    title: 'First Donations',
+    description: 'Crossed our first major milestone distributing cloths for orphan children.',
   },
   {
     year: '2024',
+    title: 'Volunteer Network',
+    description: 'Onboarded 10+ volunteers and partnered with 10 orphanages and old-age homes.',
+  },
+  {
+    year: '2025',
     title: 'Digital Platform',
     description: 'Launched the doGood web app to connect donors and beneficiaries seamlessly.',
   },
   {
-    year: '2025',
+    year: '2026',
     title: 'Regional Expansion',
-    description: 'Extended operations to 45+ communities and delivered 12K+ donations.',
+    description: 'Extended operations to 5+ communities and delivered 12K+ donations.',
   },
 ];
 
@@ -189,71 +183,74 @@ const About = () => {
 
           {/* Stats Strip */}
           <Grid container spacing={2}>
-            {STATS.map((stat) => (
-              <Grid key={stat.label} size={{ xs: 6, md: 3 }}>
-                <Paper
-                  elevation={0}
-                  sx={{
-                    p: { xs: 2, md: 3 },
-                    textAlign: 'center',
-                    borderRadius: 3,
-                    bgcolor: 'rgba(255,255,255,0.12)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.25)',
-                    height: '100%',
-                    transition: 'transform 0.25s ease, bgcolor 0.25s ease',
-                    '&:hover': {
-                      transform: 'translateY(-4px)',
-                      bgcolor: 'rgba(255,255,255,0.2)',
-                    },
-                  }}
-                >
-                  <Box
+            {IMPACT_STATS.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <Grid key={stat.key} size={{ xs: 6, md: 3 }}>
+                  <Paper
+                    elevation={0}
                     sx={{
-                      width: 48,
-                      height: 48,
-                      mx: 'auto',
-                      mb: 1.5,
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      bgcolor: 'rgba(255,255,255,0.15)',
-                      color: stat.color,
-                      '& svg': { fontSize: 28 },
+                      p: { xs: 2, md: 3 },
+                      textAlign: 'center',
+                      borderRadius: 3,
+                      bgcolor: 'rgba(255,255,255,0.12)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.25)',
+                      height: '100%',
+                      transition: 'transform 0.25s ease, bgcolor 0.25s ease',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                        bgcolor: 'rgba(255,255,255,0.2)',
+                      },
                     }}
                   >
-                    {stat.icon}
-                  </Box>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      fontWeight: 800,
-                      color: '#fff',
-                      lineHeight: 1,
-                      fontSize: { xs: '1.75rem', md: '2.25rem' },
-                    }}
-                  >
-                    {stat.value}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      color: 'rgba(255,255,255,0.85)',
-                      fontWeight: 600,
-                      letterSpacing: 0.5,
-                      textTransform: 'uppercase',
-                      fontSize: '0.7rem',
-                      display: 'block',
-                      mt: 0.5,
-                    }}
-                  >
-                    {stat.label}
-                  </Typography>
-                </Paper>
-              </Grid>
-            ))}
+                    <Box
+                      sx={{
+                        width: 48,
+                        height: 48,
+                        mx: 'auto',
+                        mb: 1.5,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        bgcolor: `${stat.color}33`,
+                        color: stat.color,
+                        '& svg': { fontSize: 28 },
+                      }}
+                    >
+                      <Icon />
+                    </Box>
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        fontWeight: 800,
+                        color: '#fff',
+                        lineHeight: 1,
+                        fontSize: { xs: '1.75rem', md: '2.25rem' },
+                      }}
+                    >
+                      {stat.value}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: 'rgba(255,255,255,0.85)',
+                        fontWeight: 600,
+                        letterSpacing: 0.5,
+                        textTransform: 'uppercase',
+                        fontSize: '0.7rem',
+                        display: 'block',
+                        mt: 0.5,
+                      }}
+                    >
+                      {stat.label}
+                    </Typography>
+                  </Paper>
+                </Grid>
+              );
+            })}
           </Grid>
 
           {/* Mission & Vision */}
