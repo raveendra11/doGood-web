@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Button,
@@ -7,12 +7,7 @@ import {
   Typography,
   Paper,
   CircularProgress,
-  InputAdornment,
 } from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
-import LockIcon from '@mui/icons-material/Lock';
-import KeyIcon from '@mui/icons-material/Key';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -25,10 +20,12 @@ const ForgotPassword = () => {
 
   const parseResponse = async (response) => {
     const contentType = response.headers.get('content-type');
+
     if (contentType && contentType.includes('application/json')) {
       return await response.json();
+    } else {
+      return await response.text();
     }
-    return await response.text();
   };
 
   const handleGenerateToken = async () => {
@@ -36,23 +33,30 @@ const ForgotPassword = () => {
       setError('Email is required');
       return;
     }
+
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('https://api.wedogood.help/api/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        'https://api.wedogood.help/api/forgot-password',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       const data = await parseResponse(response);
 
       if (response.ok) {
         if (typeof data === 'object' && data.token) {
+          // Proper JSON response
           setToken(data.token);
         } else if (typeof data === 'string') {
+          // Extract UUID from string response
           const uuidMatch = data.match(/[0-9a-fA-F-]{36}/);
+
           if (uuidMatch) {
             setToken(uuidMatch[0]);
           } else {
@@ -65,14 +69,21 @@ const ForgotPassword = () => {
           setLoading(false);
           return;
         }
+
         setGenerated(true);
-      } else {
-        setError(typeof data === 'string' ? data : data?.message || 'Invalid email');
+      }
+      else {
+        setError(
+          typeof data === 'string'
+            ? data
+            : data?.message || 'Invalid email'
+        );
       }
     } catch (err) {
       console.error(err);
       setError('Network error or server not reachable');
     }
+
     setLoading(false);
   };
 
@@ -81,217 +92,136 @@ const ForgotPassword = () => {
       setError('All fields are required');
       return;
     }
+
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('https://api.wedogood.help/api/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, newPassword }),
-      });
+      const response = await fetch(
+        'https://api.wedogood.help/api/reset-password',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token,
+            newPassword,
+          }),
+        }
+      );
+
       const data = await parseResponse(response);
+
       if (response.ok) {
+        alert(
+          'Password reset completed. Use your new password to login.'
+        );
         navigate('/login');
       } else {
-        setError(typeof data === 'string' ? data : data?.message || 'Password reset failed');
+        setError(
+          typeof data === 'string'
+            ? data
+            : data?.message || 'Invalid or expired token'
+        );
       }
     } catch (err) {
       console.error(err);
       setError('Network error or server not reachable');
     }
+
     setLoading(false);
   };
 
   return (
     <Box
       sx={{
-        minHeight: '100vh',
-        minHeight: '100dvh',
-        width: '100%',
-        backgroundColor: '#1b5e20',
-        backgroundImage: [
-          'linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45))',
-          "url('/login.jpg')",
-        ].join(', '),
+        height: '100vh',
+        width: '100vw',
+        backgroundImage: "url('/login.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        px: { xs: 1.5, sm: 2 },
-        py: { xs: 12, md: 8 },
-        overflowX: 'hidden',
       }}
     >
       <Paper
-        elevation={0}
+        elevation={6}
         sx={{
-          position: 'relative',
-          zIndex: 1,
-          maxWidth: 440,
+          maxWidth: 400,
           width: '100%',
-          p: { xs: 3, sm: 4, md: 5 },
-          borderRadius: 4,
-          bgcolor: '#ffffff',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-          border: '4px solid #fff',
+          p: 4,
+          borderRadius: 3,
+          bgcolor: 'rgba(255,255,255,0.85)',
         }}
       >
-        <Box textAlign="center" sx={{ mb: { xs: 3, md: 4 } }}>
-          <Box
-            sx={{
-              width: 56,
-              height: 56,
-              mx: 'auto',
-              mb: 1.5,
-              borderRadius: '50%',
-              bgcolor: '#e8f5e9',
-              color: '#1b5e20',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <KeyIcon sx={{ fontSize: 28 }} />
-          </Box>
-          <Typography
-            variant="h4"
-            sx={{
-              fontWeight: 900,
-              color: '#1b5e20',
-              mb: 1,
-              letterSpacing: '-0.02em',
-              fontSize: { xs: '1.5rem', sm: '1.85rem', md: '2.125rem' },
-            }}
-          >
-            {generated ? 'Reset Password' : 'Forgot Password'}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
-            {generated
-              ? 'Enter the token we sent and your new password.'
-              : "Enter your email and we'll send you a reset token."}
-          </Typography>
-        </Box>
+        <Typography variant="h5" gutterBottom align="center">
+          Forgot Password
+        </Typography>
 
         {!generated ? (
           <>
             <TextField
-              label="Email Address"
-              type="email"
+              label="Email"
               fullWidth
               margin="normal"
-              variant="outlined"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailIcon sx={{ color: '#2e7d32' }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
             />
-            {error && (
-              <Typography color="error" variant="body2" sx={{ mt: 1, textAlign: 'center' }}>
-                {error}
-              </Typography>
-            )}
+
             <Button
               variant="contained"
               fullWidth
-              size="large"
-              endIcon={!loading && <ArrowForwardIcon />}
+              sx={{ mt: 2 }}
               onClick={handleGenerateToken}
               disabled={loading}
-              sx={{
-                mt: 3,
-                py: 1.5,
-                fontWeight: 'bold',
-                borderRadius: 3,
-                bgcolor: '#1b5e20',
-                '&:hover': { bgcolor: '#2e7d32' },
-              }}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Generate Reset Token'}
+              {loading ? (
+                <CircularProgress size={24} />
+              ) : (
+                'Generate Reset Token'
+              )}
             </Button>
           </>
         ) : (
           <>
             <TextField
-              label="Reset Token"
+              label="Token"
               fullWidth
               margin="normal"
-              variant="outlined"
               value={token}
               onChange={(e) => setToken(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <KeyIcon sx={{ color: '#2e7d32' }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
             />
+
             <TextField
               label="New Password"
               type="password"
               fullWidth
               margin="normal"
-              variant="outlined"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockIcon sx={{ color: '#2e7d32' }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
             />
-            {error && (
-              <Typography color="error" variant="body2" sx={{ mt: 1, textAlign: 'center' }}>
-                {error}
-              </Typography>
-            )}
+
             <Button
               variant="contained"
               fullWidth
-              size="large"
-              endIcon={!loading && <ArrowForwardIcon />}
+              sx={{ mt: 2 }}
               onClick={handleResetPassword}
               disabled={loading}
-              sx={{
-                mt: 3,
-                py: 1.5,
-                fontWeight: 'bold',
-                borderRadius: 3,
-                bgcolor: '#1b5e20',
-                '&:hover': { bgcolor: '#2e7d32' },
-              }}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Reset Password'}
+              {loading ? (
+                <CircularProgress size={24} />
+              ) : (
+                'Reset Password'
+              )}
             </Button>
           </>
         )}
 
-        <Box textAlign="center" sx={{ mt: 3 }}>
-          <Link
-            to="/login"
-            style={{
-              textDecoration: 'none',
-              color: '#1b5e20',
-              fontWeight: 600,
-              fontSize: '0.875rem',
-            }}
-          >
-            ← Back to Login
-          </Link>
-        </Box>
+        {error && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+        )}
       </Paper>
     </Box>
   );
