@@ -122,7 +122,14 @@ const Navbar = () => {
           borderBottom: 'none',
         }}
       >
-        <Toolbar sx={{ minHeight: { xs: 60, md: 68 }, px: { xs: 2, md: 3 } }}>
+        <Toolbar
+          sx={{
+            minHeight: { xs: 60, md: 68 },
+            px: { xs: 2, md: 3 },
+            paddingTop: 'env(safe-area-inset-top)',
+            minHeight: { xs: 'calc(60px + env(safe-area-inset-top))', md: 'calc(68px + env(safe-area-inset-top))' },
+          }}
+        >
           {/* Logo + Brand */}
           <Link
             to="/"
@@ -130,7 +137,15 @@ const Navbar = () => {
             style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}
           >
             <Box component="span" sx={{ mr: 0.5, p: 0.5, display: 'flex', alignItems: 'center' }}>
-              <img src="doGood.png" alt="" style={{ height: 44, width: 44, borderRadius: '50%' }} />
+              <img
+                src="doGood.png"
+                alt=""
+                style={{
+                  height: 'clamp(34px, 9vw, 44px)',
+                  width: 'clamp(34px, 9vw, 44px)',
+                  borderRadius: '50%',
+                }}
+              />
             </Box>
           </Link>
 
