@@ -1,3 +1,22 @@
+/* ==========================================================================
+   Global resets and mobile-safe defaults for doGood
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Prevent horizontal scroll from decorative elements on small screens */
+  overflow-x: hidden;
+  /* Smooth anchor scrolling for any in-page links */
+  scroll-behavior: smooth;
+  /* Better text rendering on iOS */
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +24,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll globally */
+  overflow-x: hidden;
+  /* Avoid overscroll bounce showing background color mismatch */
+  background-color: #f1f8e9;
+  /* Respect iOS safe areas */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 code {
@@ -12,7 +38,41 @@ code {
     monospace;
 }
 
-html, body, #root {
-  height: 100%;
-  margin: 0;
+#root {
+  min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport, falls back gracefully */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 600px) {
+  button,
+  [role='button'] {
+    min-height: 44px;
+  }
+}
+
+/* Better focus visibility for keyboard users */
+:focus-visible {
+  outline: 2px solid #1b5e20;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Prevent long unbroken text from breaking mobile layouts */
+p,
+li,
+dd,
+dt,
+blockquote {
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
+}
+
+/* Reusable utility class for any full-viewport section */
+.full-viewport {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
 }

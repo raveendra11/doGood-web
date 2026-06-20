@@ -56,6 +56,7 @@ const UserRegistration = () => {
     <Box
       sx={{
         minHeight: '100vh',
+        minHeight: '100dvh',
         width: '100%',
         m: 0,
         p: 0,
@@ -84,7 +85,16 @@ const UserRegistration = () => {
         }}
       >
         <Box textAlign="center" mb={4}>
-          <Typography variant="h4" sx={{ fontWeight: 900, color: '#1b5e20', mb: 1, letterSpacing: '-0.02em' }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 900,
+              color: '#1b5e20',
+              mb: 1,
+              letterSpacing: '-0.02em',
+              fontSize: { xs: '1.5rem', sm: '1.85rem', md: '2.125rem' },
+            }}
+          >
             Create Account
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
