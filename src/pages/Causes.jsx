@@ -217,15 +217,18 @@ const Causes = () => {
       component="section"
       sx={{
         minHeight: '100vh',
+        // eslint-disable-next-line no-dupe-keys
         minHeight: '100dvh',
         width: '100%',
-        backgroundColor: '#e8f5e9',
         backgroundImage:
-          "url('/causes-bg.svg'), radial-gradient(circle at 15% 20%, rgba(200, 230, 201, 0.55) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(165, 214, 167, 0.45) 0%, transparent 50%)",
-        backgroundSize: 'cover, auto, auto',
-        backgroundPosition: 'center, center, center',
+          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/about-bg.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        py: { xs: 10, md: 14 },
+        pt: { xs: 10, md: 14 },
+        pb: { xs: 12, md: 16 },
+        position: 'relative',
+        color: '#fff',
       }}
     >
       <Container maxWidth="lg">
@@ -241,28 +244,29 @@ const Causes = () => {
                 letterSpacing: 1.5,
                 textTransform: 'uppercase',
                 fontSize: '0.75rem',
-                color: '#1b5e20',
-                bgcolor: '#ffffff',
-                border: '1px solid #c8e6c9',
-                boxShadow: '0 2px 8px rgba(27,94,32,0.08)',
+                color: '#fff',
+                bgcolor: 'rgba(255, 255, 255, 0.18)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
               }}
             />
             <Typography
               variant="h2"
               sx={{
                 fontWeight: 900,
-                color: '#1b5e20',
+                color: '#fff',
                 mb: 2,
                 letterSpacing: '-0.02em',
                 fontSize: { xs: '2.25rem', sm: '2.75rem', md: '3.5rem' },
                 lineHeight: 1.1,
+                textShadow: '0 4px 10px rgba(0,0,0,0.3)',
               }}
             >
               Where Your{' '}
               <Box
                 component="span"
                 sx={{
-                  background: 'linear-gradient(90deg, #1b5e20 0%, #43A047 100%)',
+                  background: 'linear-gradient(90deg, #ffffff 0%, #c8e6c9 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -275,7 +279,8 @@ const Causes = () => {
             <Typography
               variant="body1"
               sx={{
-                color: 'text.secondary',
+                color: 'rgba(255,255,255,0.9)',
+                fontWeight: 500,
                 maxWidth: 680,
                 mx: 'auto',
                 fontSize: { xs: '1rem', md: '1.1rem' },
@@ -286,7 +291,7 @@ const Causes = () => {
               our commitment to creating a real, lasting impact in the
               communities we serve.
             </Typography>
-            <Box sx={{ width: 60, height: 4, bgcolor: '#2e7d32', mx: 'auto', borderRadius: 2, mt: 3 }} />
+            <Box sx={{ width: 60, height: 4, bgcolor: '#4CAF50', mx: 'auto', borderRadius: 2, mt: 3 }} />
           </Box>
 
           {/* ===== FILTER CHIPS ===== */}

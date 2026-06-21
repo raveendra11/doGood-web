@@ -22,19 +22,19 @@ const Contact = () => {
       <Box
         sx={{
           minHeight: '100vh',
-        minHeight: '100dvh',
+          // eslint-disable-next-line no-dupe-keys
+          minHeight: '100dvh',
           width: '100%',
-          backgroundColor: '#1b5e20',
-          backgroundImage: [
-            'radial-gradient(circle at 15% 20%, rgba(129, 199, 132, 0.40) 0%, transparent 45%)',
-            'radial-gradient(circle at 85% 75%, rgba(165, 214, 167, 0.35) 0%, transparent 45%)',
-            'linear-gradient(135deg, #0d3a13 0%, #1b5e20 50%, #2e7d32 100%)',
-          ].join(', '),
-          backgroundAttachment: 'fixed',
+          backgroundImage:
+            'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/about-bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          p: 2
+          p: 2,
+          color: '#fff',
         }}
       >
         <Paper
@@ -64,37 +64,27 @@ const Contact = () => {
     <Box
       sx={{
         minHeight: '100vh',
+        // eslint-disable-next-line no-dupe-keys
         minHeight: '100dvh',
         width: '100%',
         m: 0,
         p: 0,
-        backgroundColor: '#1b5e20',
-        backgroundImage: [
-          'radial-gradient(circle at 12% 18%, rgba(129, 199, 132, 0.40) 0%, transparent 40%)',
-          'radial-gradient(circle at 88% 25%, rgba(165, 214, 167, 0.35) 0%, transparent 42%)',
-          'radial-gradient(circle at 50% 60%, rgba(200, 230, 201, 0.28) 0%, transparent 55%)',
-          'radial-gradient(circle at 20% 92%, rgba(102, 187, 106, 0.32) 0%, transparent 45%)',
-          'linear-gradient(160deg, #0d3a13 0%, #1b5e20 35%, #2e7d32 70%, #1b5e20 100%)',
-        ].join(', '),
-        backgroundAttachment: 'fixed',
+        backgroundImage:
+          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/about-bg.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         position: 'relative',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        p: 2,
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'><path d='M90 10 Q120 60 90 110 Q60 160 90 170'/><path d='M30 30 Q70 70 30 110'/><path d='M150 30 Q110 70 150 110'/></g></svg>\")",
-          backgroundSize: '180px 180px',
-          opacity: 0.5,
-          pointerEvents: 'none',
-        },
+        pt: { xs: 10, md: 14 },
+        pb: { xs: 6, md: 10 },
+        px: 2,
+        color: '#fff',
       }}
     >
-      <Paper 
+      <Paper
         elevation={0}
         sx={{
           position: 'relative',
