@@ -134,7 +134,9 @@ const ForgotPassword = () => {
   return (
     <Box
       sx={{
-        height: '100vh',
+        minHeight: '100vh',
+        // eslint-disable-next-line no-dupe-keys
+        minHeight: '100dvh',
         width: '100vw',
         backgroundImage: "url('/login.jpg')",
         backgroundSize: 'cover',

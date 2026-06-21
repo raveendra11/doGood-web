@@ -348,53 +348,68 @@ const Gallery = () => {
       sx={{
         py: { xs: 10, md: 12 },
         px: 2,
-        backgroundColor: '#1b5e20',
-        backgroundImage: [
-          'radial-gradient(circle at 12% 18%, rgba(129, 199, 132, 0.45) 0%, transparent 40%)',
-          'radial-gradient(circle at 88% 25%, rgba(165, 214, 167, 0.40) 0%, transparent 42%)',
-          'radial-gradient(circle at 50% 60%, rgba(200, 230, 201, 0.30) 0%, transparent 55%)',
-          'radial-gradient(circle at 20% 92%, rgba(102, 187, 106, 0.35) 0%, transparent 45%)',
-          'linear-gradient(160deg, #0d3a13 0%, #1b5e20 35%, #2e7d32 70%, #1b5e20 100%)',
-        ].join(', '),
-        backgroundAttachment: 'fixed',
+        backgroundImage:
+          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/about-bg.jpg)',
+        backgroundSize: '200% auto',
+        backgroundPosition: 'top center',
+        backgroundRepeat: 'no-repeat',
         minHeight: '100vh',
         minHeight: '100dvh',
         position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'><path d='M90 10 Q120 60 90 110 Q60 160 90 170'/><path d='M30 30 Q70 70 30 110'/><path d='M150 30 Q110 70 150 110'/></g></svg>\")",
-          backgroundSize: '180px 180px',
-          opacity: 0.55,
-          pointerEvents: 'none',
-        },
+        color: '#fff',
       }}
     >
       <Container maxWidth="lg">
         <Stack spacing={5}>
           {/* Hero */}
           <Box textAlign="center">
-            <Typography
-              variant="overline"
-              sx={{ color: '#2e7d32', fontWeight: 700, letterSpacing: 2 }}
-            >
-              Our Impact
-            </Typography>
+            <Chip
+              label="Our Impact"
+              sx={{
+                mb: 2,
+                px: 1,
+                fontWeight: 700,
+                letterSpacing: 1.5,
+                color: '#fff',
+                bgcolor: 'rgba(255, 255, 255, 0.18)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
+              }}
+            />
             <Typography
               variant="h3"
-              sx={{ fontWeight: 800, color: '#1b5e20', mb: 2, mt: 0.5 }}
+              sx={{
+                fontWeight: 800,
+                color: '#fff',
+                mb: 2,
+                mt: 0.5,
+                textShadow: '0 4px 10px rgba(0,0,0,0.3)',
+              }}
             >
               Donation Gallery
             </Typography>
             <Typography
               variant="body1"
-              sx={{ color: 'text.secondary', maxWidth: 720, mx: 'auto', fontSize: '1.05rem' }}
+              sx={{
+                color: 'rgba(255,255,255,0.9)',
+                maxWidth: 720,
+                mx: 'auto',
+                fontSize: '1.05rem',
+              }}
             >
               Explore our recent donation efforts and impact stories. We believe in transparency
               and sharing the joy of giving.
             </Typography>
+            <Box
+              sx={{
+                width: 80,
+                height: 4,
+                bgcolor: '#4CAF50',
+                mx: 'auto',
+                borderRadius: 2,
+                mt: 3,
+              }}
+            />
           </Box>
 
           {/* Stats */}
@@ -470,10 +485,10 @@ const Gallery = () => {
           {/* Grid */}
           {filtered.length === 0 ? (
             <Box textAlign="center" sx={{ py: 8 }}>
-              <Typography variant="h6" color="text.secondary">
+              <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.9)' }}>
                 No items in this category yet.
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              <Typography variant="body2" sx={{ mt: 1, color: 'rgba(255,255,255,0.7)' }}>
                 Check back soon — we're always adding new stories.
               </Typography>
             </Box>

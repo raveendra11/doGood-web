@@ -5,7 +5,6 @@ import {
   Button,
   Card,
   CardActionArea,
-  CardContent,
   Chip,
   Container,
   Divider,
@@ -28,6 +27,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import GALLERY_ITEMS from '../data/galleryItems';
 import { IMPACT_STATS } from '../data/impactStats';
+import MorphingText from '../components/MorphingText';
 
 const QUICK_LINKS = [
   {
@@ -162,10 +162,10 @@ const Home = () => {
       sx={{
         position: 'relative',
         minHeight: '100vh',
+        // eslint-disable-next-line no-dupe-keys
         minHeight: '100dvh',
         width: '100%',
-        backgroundImage: 'linear-gradient(to bottom, transparent 0%, #fdfbf7 100%)',
-        backgroundColor: '#fdfbf7',
+        backgroundColor: '#f1f8e9',
         display: 'flex',
         flexDirection: 'column',
         paddingTop: 'env(safe-area-inset-top)',
@@ -557,11 +557,6 @@ const Home = () => {
           py: { xs: 10, md: 14 },
           position: 'relative',
           backgroundColor: '#f1f8e9',
-          backgroundImage: [
-            'radial-gradient(circle at 10% 20%, rgba(165, 214, 167, 0.45) 0%, transparent 45%)',
-            'radial-gradient(circle at 90% 75%, rgba(200, 230, 201, 0.55) 0%, transparent 50%)',
-            'linear-gradient(180deg, #f1f8e9 0%, #e8f5e9 100%)',
-          ].join(', '),
         }}
       >
         <Container maxWidth="lg">
@@ -843,7 +838,7 @@ const Home = () => {
       </Box>
 
       {/* ===== GALLERY PREVIEW ===== */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#e8f5e9' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#f1f8e9' }}>
         <Container maxWidth="lg">
           <SectionHeader
             eyebrow="Recent Impact"
@@ -1003,8 +998,6 @@ const Home = () => {
         sx={{
           py: { xs: 10, md: 14 },
           backgroundColor: '#f1f8e9',
-          backgroundImage:
-            'radial-gradient(circle at 15% 20%, rgba(200, 230, 201, 0.55) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(165, 214, 167, 0.45) 0%, transparent 50%)',
         }}
       >
         <Container maxWidth="md">
@@ -1037,12 +1030,16 @@ const Home = () => {
                 fontWeight: 800,
                 color: '#1b5e20',
                 mb: 2,
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                fontSize: { xs: '1.5rem', sm: '2.25rem', md: '2.75rem' },
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'baseline',
               }}
             >
-              Doing Good,{' '}
+              <MorphingText from="DoGood" to="Doing Good" />,{ ' '}
               <Box
                 component="span"
                 sx={{

@@ -4,7 +4,6 @@ import {
   Avatar,
   Box,
   Button,
-  Chip,
   Container,
   Divider,
   Grid,
@@ -41,7 +40,7 @@ const Account = () => {
       component="section"
       sx={{
         minHeight: '100vh',
-        minHeight: '100dvh',
+        // eslint-disable-next-line no-dupe-keys
         minHeight: '100dvh',
         py: { xs: 12, md: 14 },
         px: { xs: 1, sm: 2 },
