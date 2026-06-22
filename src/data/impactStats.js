@@ -35,7 +35,7 @@ export const IMPACT_STATS = [
   },
   {
     key: 'communities',
-    value: '5+',
+    value: '1+',
     label: 'Communities Served',
     shortLabel: 'Communities',
     icon: Diversity3Icon,

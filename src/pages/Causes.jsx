@@ -167,7 +167,7 @@ const CauseCard = ({ cause, onLearnMore }) => (
         {cause.description}
       </Typography>
 
-      <Stack
+      {/* <Stack
         direction="row"
         justifyContent="space-between"
         alignItems="center"
@@ -199,6 +199,7 @@ const CauseCard = ({ cause, onLearnMore }) => (
           <ArrowForwardIcon className="cause-arrow" sx={{ fontSize: 20, transition: 'transform 0.25s ease' }} />
         </CardActionArea>
       </Stack>
+      */}
     </CardContent>
   </Card>
 );
@@ -221,7 +222,7 @@ const Causes = () => {
         minHeight: '100dvh',
         width: '100%',
         backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/about-bg.jpg)',
+          'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/register.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

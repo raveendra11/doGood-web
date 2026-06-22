@@ -26,7 +26,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -37,12 +36,14 @@ import { useAuth } from '../context/AuthContext';
 
 const NAV_LINKS = [
   { label: 'Home',      path: '/',          icon: <HomeIcon /> },
-  { label: 'About Us',  path: '/about',     icon: <InfoIcon /> },
+  { label: 'About',  path: '/about',     icon: <InfoIcon /> },
   { label: 'Causes',    path: '/causes',    icon: <FavoriteIcon /> },
   { label: 'Gallery',   path: '/gallery',   icon: <PhotoLibraryIcon /> },
-  { label: 'FAQ',       path: '/faq',       icon: <HelpOutlineIcon /> },
+  { label: 'Donate',    path: '/donate',    icon: <VolunteerActivismIcon /> },
   { label: 'Contact',   path: '/contact',   icon: <ContactMailIcon /> },
 ];
+
+const NAV_FONT = '"Poppins", "Helvetica Neue", Arial, sans-serif';
 
 // Friendly display name pulled from a user object (best-effort, no PII leakage)
 const getUserDisplay = (user) => {
@@ -124,15 +125,16 @@ const Navbar = () => {
 
   // ---------- shared style helpers ----------
   const navLinkSx = (active) => ({
+    fontFamily: NAV_FONT,
     position: 'relative',
     color: '#fff',
-    fontWeight: active ? 900 : 700,
+    fontWeight: active ? 800 : 600,
     textTransform: 'none',
-    fontSize: '1rem',
+    fontSize: '0.95rem',
     px: 1.75,
     py: 0.85,
     borderRadius: 999,
-    letterSpacing: '0.01em',
+    letterSpacing: '0.02em',
     backgroundColor: active ? 'rgba(255, 255, 255, 0.18)' : 'transparent',
     boxShadow: active ? 'inset 0 0 0 1px rgba(255, 255, 255, 0.45)' : 'none',
     transition:
@@ -149,14 +151,16 @@ const Navbar = () => {
   });
 
   const authButtonSx = (variant) => ({
-    fontWeight: 800,
+    fontFamily: NAV_FONT,
+    fontWeight: 700,
     textTransform: 'none',
-    fontSize: '0.95rem',
+    fontSize: '0.92rem',
     px: 2.25,
     py: 0.75,
     ml: 1,
     minHeight: 40,
     borderRadius: 999,
+    letterSpacing: '0.02em',
     transition: 'all 0.2s ease',
     '&:focus-visible': { outline: '2px solid #fff', outlineOffset: 2 },
     ...(variant === 'outlined'
@@ -304,6 +308,7 @@ const Navbar = () => {
                   >
                     <Avatar
                       sx={{
+                        fontFamily: NAV_FONT,
                         width: 38,
                         height: 38,
                         bgcolor: '#fff',
@@ -336,13 +341,13 @@ const Navbar = () => {
                     }}
                   >
                     <Box sx={{ px: 2, py: 1.25, bgcolor: '#f1f8e9' }}>
-                      <Typography sx={{ fontWeight: 700, color: '#1b5e20', lineHeight: 1.2 }}>
+                      <Typography sx={{ fontFamily: NAV_FONT, fontWeight: 700, color: '#1b5e20', lineHeight: 1.2 }}>
                         {getUserDisplay(currentUser)}
                       </Typography>
                       {currentUser.email && (
                         <Typography
                           variant="caption"
-                          sx={{ color: 'text.secondary', display: 'block', mt: 0.25 }}
+                          sx={{ fontFamily: NAV_FONT, color: 'text.secondary', display: 'block', mt: 0.25 }}
                         >
                           {currentUser.email}
                         </Typography>
@@ -373,6 +378,7 @@ const Navbar = () => {
                     sx={authButtonSx('outlined')}
                     component={Link}
                     to="/login"
+                    disabled
                   >
                     Login
                   </Button>
@@ -380,6 +386,7 @@ const Navbar = () => {
                     sx={authButtonSx('filled')}
                     component={Link}
                     to="/register"
+                    disabled
                   >
                     Register
                   </Button>
@@ -465,6 +472,7 @@ const Navbar = () => {
             <Stack direction="row" spacing={1.25} alignItems="center">
               <Avatar
                 sx={{
+                  fontFamily: NAV_FONT,
                   width: 36,
                   height: 36,
                   bgcolor: '#fff',
@@ -476,13 +484,13 @@ const Navbar = () => {
                 {getInitials(currentUser)}
               </Avatar>
               <Box sx={{ minWidth: 0 }}>
-                <Typography sx={{ fontWeight: 700, lineHeight: 1.1 }} noWrap>
+                <Typography sx={{ fontFamily: NAV_FONT, fontWeight: 700, lineHeight: 1.1 }} noWrap>
                   {getUserDisplay(currentUser)}
                 </Typography>
                 {currentUser.email && (
                   <Typography
                     variant="caption"
-                    sx={{ color: 'rgba(255,255,255,0.8)' }}
+                    sx={{ fontFamily: NAV_FONT, color: 'rgba(255,255,255,0.8)' }}
                     noWrap
                   >
                     {currentUser.email}
@@ -533,9 +541,11 @@ const Navbar = () => {
                   <ListItemText
                     primary={label}
                     primaryTypographyProps={{
+                      fontFamily: NAV_FONT,
                       fontWeight: active ? 700 : 500,
                       color: '#fff',
-                      fontSize: '1rem',
+                      fontSize: '0.98rem',
+                      letterSpacing: '0.01em',
                     }}
                   />
                 </ListItemButton>
@@ -569,7 +579,7 @@ const Navbar = () => {
                   </ListItemIcon>
                   <ListItemText
                     primary="Dashboard"
-                    primaryTypographyProps={{ fontWeight: 700, color: '#fff' }}
+                    primaryTypographyProps={{ fontFamily: NAV_FONT, fontWeight: 700, color: '#fff' }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -592,7 +602,7 @@ const Navbar = () => {
                   </ListItemIcon>
                   <ListItemText
                     primary="Profile"
-                    primaryTypographyProps={{ fontWeight: 700, color: '#fff' }}
+                    primaryTypographyProps={{ fontFamily: NAV_FONT, fontWeight: 700, color: '#fff' }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -617,7 +627,7 @@ const Navbar = () => {
                   </ListItemIcon>
                   <ListItemText
                     primary="Logout"
-                    primaryTypographyProps={{ fontWeight: 800 }}
+                    primaryTypographyProps={{ fontFamily: NAV_FONT, fontWeight: 800 }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -630,12 +640,14 @@ const Navbar = () => {
                   component={Link}
                   to="/login"
                   onClick={closeDrawer}
+                  disabled
                   sx={{
+                    fontFamily: NAV_FONT,
                     color: '#fff',
                     border: '1.5px solid rgba(255,255,255,0.7)',
                     borderRadius: 999,
                     py: 1.1,
-                    fontWeight: 800,
+                    fontWeight: 700,
                     textTransform: 'none',
                     '&:hover': {
                       backgroundColor: 'rgba(255,255,255,0.12)',
@@ -651,12 +663,14 @@ const Navbar = () => {
                   to="/register"
                   onClick={closeDrawer}
                   variant="contained"
+                  disabled
                   sx={{
+                    fontFamily: NAV_FONT,
                     bgcolor: '#fff',
                     color: '#1b5e20',
                     borderRadius: 999,
                     py: 1.1,
-                    fontWeight: 800,
+                    fontWeight: 700,
                     textTransform: 'none',
                     boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
                     '&:hover': { bgcolor: '#f1f8e9' },
