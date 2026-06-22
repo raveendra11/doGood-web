@@ -123,19 +123,6 @@ const Footer = () => (
             >
               Become a Donor →
             </Link>
-            <Link
-              component={RouterLink}
-              to="/request-help"
-              underline="hover"
-              sx={{
-                color: '#A5D6A7',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                '&:hover': { color: '#fff' },
-              }}
-            >
-              Request Help →
-            </Link>
           </Stack>
         </Grid>
       </Grid>

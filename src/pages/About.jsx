@@ -67,17 +67,12 @@ const MILESTONES = [
   {
     year: '2024',
     title: 'Volunteer Network',
-    description: 'Onboarded 10+ volunteers and partnered with 10 orphanages and old-age homes.',
+    description: '10+ friends who became volunteers and partnered with 1 orphanages and old-age home.',
   },
   {
     year: '2025',
     title: 'Digital Platform',
     description: 'Launched the doGood web app to connect donors and beneficiaries seamlessly.',
-  },
-  {
-    year: '2026',
-    title: 'Regional Expansion',
-    description: 'Extended operations to 5+ communities and delivered 12K+ donations.',
   },
 ];
 
@@ -543,10 +538,11 @@ const About = () => {
               >
                 Donate Now
               </Button>
-              <Button
+              {/* <Button
                 variant="outlined"
                 size="large"
                 onClick={() => navigate('/register')}
+                disabled
                 sx={{
                   color: '#fff',
                   borderColor: 'rgba(255,255,255,0.6)',
@@ -563,7 +559,7 @@ const About = () => {
                 }}
               >
                 Join as Volunteer
-              </Button>
+              </Button> */}
             </Stack>
           </Paper>
         </Stack>

@@ -349,12 +349,11 @@ const Gallery = () => {
         py: { xs: 10, md: 12 },
         px: 2,
         backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/about-bg.jpg)',
-        backgroundSize: '200% auto',
-        backgroundPosition: 'top center',
+          'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/login.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        minHeight: '100vh',
-        minHeight: '100dvh',
+        minHeight: { xs: '100vh', md: '100dvh' },
         position: 'relative',
         color: '#fff',
       }}

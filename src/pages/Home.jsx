@@ -1035,14 +1035,21 @@ const Home = () => {
                 lineHeight: 1.15,
                 whiteSpace: 'nowrap',
                 display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'baseline',
+                flexDirection: 'column',
+                alignItems: 'center',
               }}
             >
-              <MorphingText from="DoGood" to="Doing Good" />,{ ' '}
+              <Box
+                component="span"
+                sx={{ display: 'inline-flex', alignItems: 'baseline' }}
+              >
+                <MorphingText from="DoGood" to="Doing Good" />,{ ' '}
+              </Box>
               <Box
                 component="span"
                 sx={{
+                  alignSelf: 'flex-start',
+                  ml: { xs: '12%', sm: '14%', md: '16%' },
                   background:
                     'linear-gradient(90deg, #1b5e20 0%, #2e7d32 50%, #43A047 100%)',
                   WebkitBackgroundClip: 'text',
