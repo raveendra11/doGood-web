@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { 
-  Box, 
-  Typography, 
-  TextField, 
-  Button, 
-  Container, 
+import React from 'react';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
   Paper,
   InputAdornment
 } from '@mui/material';
@@ -12,7 +11,6 @@ import { useForm } from '@formspree/react';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Contact = () => {
   const [state, handleSubmit] = useForm("xykaqbnp");
@@ -134,6 +132,27 @@ const Contact = () => {
               startAdornment: (
                 <InputAdornment position="start">
                   <EmailIcon sx={{ color: '#2e7d32' }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
+          />
+          <TextField
+            fullWidth
+            label="Mobile Number"
+            name="mobile"
+            type="tel"
+            required
+            margin="normal"
+            inputProps={{
+              pattern: '[0-9+\\-\\s()]{7,20}',
+              inputMode: 'tel',
+              maxLength: 20,
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PhoneIcon sx={{ color: '#2e7d32' }} />
                 </InputAdornment>
               ),
             }}
