@@ -9,5 +9,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
-      nodePort: 30080 # Matches your VirtualBox Port Forwarding rule
+      targetPort: 3001
+      nodePort: 10022 # Matches your VirtualBox Port Forwarding rule
