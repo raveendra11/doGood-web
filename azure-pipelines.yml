@@ -1,102 +1,46 @@
 trigger:
-  paths:
-    include:
-      - client/*
+- main # Triggers the pipeline when you push to the main branch
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'Default' # Uses your self-hosted agent inside the VirtualBox VM
 
 variables:
-- group: aws-credentials
-- name: tag
-  value: '$(Build.BuildId)'
-- name: ECR_REPO_NAME
-  value: 'prod/react'
-- name: ECR_URI
-  value: '$(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(ECR_REPO_NAME)'
-- name: EKS_CLUSTER_DEV
-  value: 'dev-eks-cluster'
-- name: EKS_CLUSTER_PROD
-  value: 'prod-eks-cluster'
+  dockerRegistryServiceConnection: 'docker-hub-connection'
+  imageRepository: 'raveendra11/dogood-web'
+  tag: '$(Build.BuildId)'
+  kubernetesServiceConnection: 'eks-anywhere-k8s-connection'
 
 stages:
-# =========================================
-# STAGE 1: BUILD & PUSH (CI)
-# =========================================
-- stage: BuildAndPushReact
-  displayName: 'Build & Push React Image to ECR'
-  jobs:
+- stage: Build
+  displayName: Build and Push Image
+  jobs:  
   - job: Build
     steps:
-    # Authenticate, Build, and Push
-    - script: |
-        aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin $(ECR_URI)
-        docker build -t $(ECR_URI):$(tag) -f Dockerfile .
-        docker push $(ECR_URI):$(tag)
-      displayName: 'Build and Push React Docker Image'
-      workingDirectory: '$(Build.SourcesDirectory)/' 
-      env:
-        AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
-        AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
-        AWS_DEFAULT_REGION: $(AWS_REGION)
+    - task: Docker@2
+      displayName: Build and push Docker image
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(tag)
+          latest
 
-# =========================================
-# STAGE 2: DEPLOY TO DEV (CD)
-# =========================================
-- stage: DeployReactDev
-  displayName: 'Deploy React to Dev'
-  dependsOn: BuildAndPushReact
+- stage: Deploy
+  displayName: Deploy to EKS Anywhere
+  dependsOn: Build
   jobs:
-  - deployment: DeployReactToDev
-    environment: 'dev' 
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: |
-              aws eks update-kubeconfig --region $(AWS_REGION) --name $(EKS_CLUSTER_DEV)
-            displayName: 'Update kubeconfig for Dev EKS'
-            env:
-              AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
-              AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
-              AWS_DEFAULT_REGION: $(AWS_REGION)
-
-          # Notice we use 'myreactapp' instead of 'myapp'
-          - script: |
-              kubectl set image deployment/myreactapp myreactapp=$(ECR_URI):$(tag) -n dev
-              kubectl rollout status deployment/myreactapp -n dev --timeout=5m
-            displayName: 'Deploy and Verify React Dev Rollout'
-            env:
-              AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
-              AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
-              AWS_DEFAULT_REGION: $(AWS_REGION)
-
-# =========================================
-# STAGE 3: DEPLOY TO PROD (CD)
-# =========================================
-- stage: DeployReactProd
-  displayName: 'Deploy React to Production'
-  dependsOn: DeployReactDev
-  jobs:
-  - deployment: DeployReactToProd
-    environment: 'prod' 
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: |
-              aws eks update-kubeconfig --region $(AWS_REGION) --name $(EKS_CLUSTER_PROD)
-            displayName: 'Update kubeconfig for Prod EKS'
-            env:
-              AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
-              AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
-              AWS_DEFAULT_REGION: $(AWS_REGION)
-
-          - script: |
-              kubectl set image deployment/myreactapp myreactapp=$(ECR_URI):$(tag) -n prod
-              kubectl rollout status deployment/myreactapp -n prod --timeout=5m
-            displayName: 'Deploy and Verify React Prod Rollout'
-            env:
-              AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
-              AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
-              AWS_DEFAULT_REGION: $(AWS_REGION)
+  - job: Deploy
+    steps:
+    - task: KubernetesManifest@0
+      displayName: Deploy to Kubernetes cluster
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: '$(kubernetesServiceConnection)'
+        namespace: 'default'
+        manifests: |
+          k8s/deployment.yaml
+          k8s/service.yaml
+        # This automatically updates the image tag in deployment.yaml to the newly built image
+        containers: '$(imageRepository):$(tag)' 
