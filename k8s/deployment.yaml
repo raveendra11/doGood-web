@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dogood-web-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dogood-web
+  template:
+    metadata:
+      labels:
+        app: dogood-web
+    spec:
+      containers:
+      - name: dogood-web
+        # The pipeline will automatically replace 'latest' with the actual build tag
+        image: raveendra11/dogood-web:latest 
+        ports:
+        - containerPort: 80
