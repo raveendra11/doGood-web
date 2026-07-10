@@ -15,6 +15,6 @@ spec:
       containers:
       - name: dogood-web
         # The pipeline will automatically replace 'latest' with the actual build tag
-        image: raveendra11/dogood-web:latest 
+        image: raveendra03/dogood-web:latest 
         ports:
         - containerPort: 3001
