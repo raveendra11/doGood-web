@@ -1,14 +1,14 @@
 trigger:
-- main # Triggers the pipeline when you push to the main branch
+- main
 
 pool:
-  name: 'Default' # Uses your self-hosted agent inside the VirtualBox VM
+  name: 'ops-agent'  # Changed from 'Default' to match your actual pool name
 
 variables:
   dockerRegistryServiceConnection: 'docker-hub-connection'
   imageRepository: 'raveendra11/dogood-web'
   tag: '$(Build.BuildId)'
-  kubernetesServiceConnection: 'eks-anywhere-k8s-connection'
+  kubeconfigPath: '/home/admin/mgmt/mgmt-eks-a-cluster.kubeconfig'  # Using 'admin' username
 
 stages:
 - stage: Build
@@ -16,6 +16,9 @@ stages:
   jobs:  
   - job: Build
     steps:
+    - checkout: self
+      fetchDepth: 0
+      
     - task: Docker@2
       displayName: Build and push Docker image
       inputs:
@@ -33,14 +36,33 @@ stages:
   jobs:
   - job: Deploy
     steps:
-    - task: KubernetesManifest@0
-      displayName: Deploy to Kubernetes cluster
-      inputs:
-        action: 'deploy'
-        kubernetesServiceConnection: '$(kubernetesServiceConnection)'
-        namespace: 'default'
-        manifests: |
-          k8s/deployment.yaml
-          k8s/service.yaml
-        # This automatically updates the image tag in deployment.yaml to the newly built image
-        containers: '$(imageRepository):$(tag)' 
+    - checkout: self
+      fetchDepth: 0
+      
+    - script: |
+        echo "Checking kubeconfig file..."
+        ls -la $(kubeconfigPath)
+        
+        echo "Testing cluster connection..."
+        kubectl --kubeconfig=$(kubeconfigPath) get nodes
+      displayName: 'Verify Cluster Access'
+      
+    - script: |
+        echo "Deploying to Kubernetes..."
+        kubectl --kubeconfig=$(kubeconfigPath) apply -f k8s/deployment.yaml
+        kubectl --kubeconfig=$(kubeconfigPath) apply -f k8s/service.yaml
+        
+        echo "Waiting for deployment to be ready..."
+        kubectl --kubeconfig=$(kubeconfigPath) rollout status deployment/dogood-web-deployment --timeout=120s
+      displayName: 'Deploy Application'
+      
+    - script: |
+        echo "=== Deployment Status ==="
+        kubectl --kubeconfig=$(kubeconfigPath) get deployments
+        echo ""
+        echo "=== Pod Status ==="
+        kubectl --kubeconfig=$(kubeconfigPath) get pods
+        echo ""
+        echo "=== Service Status ==="
+        kubectl --kubeconfig=$(kubeconfigPath) get svc
+      displayName: 'Verify Deployment'
