@@ -9,5 +9,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 3001
-      nodePort: 10022 # Matches your VirtualBox Port Forwarding rule
+      targetPort: 3001 # Matches your Dockerfile EXPOSE port
+      nodePort: 30080  # MUST be between 30000 and 32767
