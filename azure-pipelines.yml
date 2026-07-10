@@ -6,7 +6,7 @@ pool:
 
 variables:
   dockerRegistryServiceConnection: 'docker-hub-connection'
-  imageRepository: 'raveendra11/dogood-web'
+  imageRepository: 'raveendra03/dogood-web'
   tag: '$(Build.BuildId)'
   kubeconfigPath: '/home/admin/mgmt/mgmt-eks-a-cluster.kubeconfig'  # Using 'admin' username
 
