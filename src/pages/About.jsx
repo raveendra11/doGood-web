@@ -14,7 +14,6 @@ import {
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import GroupsIcon from '@mui/icons-material/Groups';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
@@ -107,7 +106,7 @@ const About = () => {
     <Box
       component="section"
       sx={{
-        minHeight: '100vh',
+        // eslint-disable-next-line no-dupe-keys
         minHeight: '100dvh',
         width: '100%',
         backgroundImage:

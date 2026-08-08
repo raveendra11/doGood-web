@@ -25,9 +25,9 @@ const Profile = () => {
 
   return (
     <Box 
-      sx={{ 
-        minHeight: '100vh',
-        minHeight: '100dvh', 
+      sx={{
+        // eslint-disable-next-line no-dupe-keys
+        minHeight: '100dvh',
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',

@@ -55,7 +55,7 @@ const UserRegistration = () => {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        // eslint-disable-next-line no-dupe-keys
         minHeight: '100dvh',
         width: '100%',
         m: 0,
@@ -67,7 +67,6 @@ const UserRegistration = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        p: 2
       }}
     >
       <Paper

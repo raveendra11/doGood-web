@@ -49,7 +49,6 @@ const Login = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        p: 2
       }}
     >
       <Paper
