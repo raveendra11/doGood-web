@@ -19,8 +19,8 @@ const Dashboard = () => {
     
             // Responsive background images
             backgroundImage: {
-              xs: "url('/bg-mobile.png')", // portrait image for phones
-              md: "url('/bg.png')",        // landscape/wide for desktops
+              xs: "url('" + process.env.PUBLIC_URL + "/bg-mobile.png')", // portrait image for phones
+              md: "url('" + process.env.PUBLIC_URL + "/bg.png')",        // landscape/wide for desktops
             },
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover", // no white space, fills screen

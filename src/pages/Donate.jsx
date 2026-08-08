@@ -107,7 +107,7 @@ const Donate = () => {
         py: { xs: 12, md: 14 },
         px: { xs: 1, sm: 2 },
         backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/login.jpg)',
+          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(' + process.env.PUBLIC_URL + '/login.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

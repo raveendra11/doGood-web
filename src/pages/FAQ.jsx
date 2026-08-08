@@ -172,7 +172,7 @@ const FAQ = () => {
         minHeight: '100dvh',
         width: '100%',
         backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(/about-bg.jpg)',
+          'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(' + process.env.PUBLIC_URL + '/about-bg.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

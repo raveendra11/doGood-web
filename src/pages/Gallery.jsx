@@ -349,7 +349,7 @@ const Gallery = () => {
         py: { xs: 10, md: 12 },
         px: 2,
         backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/login.jpg)',
+          'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(' + process.env.PUBLIC_URL + '/login.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

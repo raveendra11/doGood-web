@@ -35,7 +35,7 @@ const GALLERY_ITEMS = [
   {
     id: 'clothes-donation-photo',
     type: 'image',
-    url: '/children_cloths_donation.jpg',
+    url: process.env.PUBLIC_URL + '/children_cloths_donation.jpg',
     title: 'Clothes Donation Drive',
     description: 'Providing clothes to children in need.',
     category: 'Basic Needs',

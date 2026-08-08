@@ -60,7 +60,7 @@ const UserRegistration = () => {
         width: '100%',
         m: 0,
         p: 0,
-        backgroundImage: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/register.jpg')",
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('" + process.env.PUBLIC_URL + "/register.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

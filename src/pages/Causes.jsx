@@ -222,7 +222,7 @@ const Causes = () => {
         minHeight: '100dvh',
         width: '100%',
         backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/register.jpg)',
+          'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(' + process.env.PUBLIC_URL + '/register.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

@@ -42,7 +42,7 @@ const Login = () => {
         width: '100%',
         m: 0,
         p: 0,
-        backgroundImage: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/login.jpg')",
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('" + process.env.PUBLIC_URL + "/login.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

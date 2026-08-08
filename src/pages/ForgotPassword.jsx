@@ -138,7 +138,7 @@ const ForgotPassword = () => {
         // eslint-disable-next-line no-dupe-keys
         minHeight: '100dvh',
         width: '100vw',
-        backgroundImage: "url('/login.jpg')",
+        backgroundImage: "url('" + process.env.PUBLIC_URL + "/login.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
