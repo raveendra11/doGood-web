@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/doGood-web/static/css/main.a7ee22f8.css",
-    "main.js": "/doGood-web/static/js/main.be55c974.js",
+    "main.js": "/doGood-web/static/js/main.ff8eb0b8.js",
     "index.html": "/doGood-web/index.html",
     "main.a7ee22f8.css.map": "/doGood-web/static/css/main.a7ee22f8.css.map",
-    "main.be55c974.js.map": "/doGood-web/static/js/main.be55c974.js.map"
+    "main.ff8eb0b8.js.map": "/doGood-web/static/js/main.ff8eb0b8.js.map"
   },
   "entrypoints": [
     "static/css/main.a7ee22f8.css",
-    "static/js/main.be55c974.js"
+    "static/js/main.ff8eb0b8.js"
   ]
 }
