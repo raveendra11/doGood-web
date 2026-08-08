@@ -1,5 +1,6 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+# Workflow for building and deploying the doGood React (CRA) site to GitHub Pages.
+# Triggers on every push to `main` and can also be run manually from the Actions tab.
+name: Deploy React app to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -30,13 +31,32 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          source: ./
-          destination: ./_site
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with Create React App
+        # CI=true prevents react-scripts from treating warnings as errors.
+        env:
+          CI: "true"
+        run: npm run build
+
+      - name: Copy build output to Pages artifact directory
+        # CRA outputs to `build/`; copy it where the Pages upload action expects it.
+        run: |
+          mkdir -p _site
+          cp -R build/* _site/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
 
   # Deployment job
   deploy:
